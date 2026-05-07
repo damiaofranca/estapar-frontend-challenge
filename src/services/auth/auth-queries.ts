@@ -1,9 +1,8 @@
 import { useMutation, type UseMutationResult } from "@tanstack/react-query";
 
-import { ROUTES, STORAGE_KEYS } from "@/config/constants";
-import type { ApiResponse } from "@/types/api-types";
-
 import { authenticationApi } from "./auth-service";
+import type { ApiResponse } from "@/types/api-types";
+import { ROUTES, STORAGE_KEYS } from "@/config/constants";
 import type { AuthToken, LoginCredentials } from "./auth-types";
 
 const useLogin = (): UseMutationResult<

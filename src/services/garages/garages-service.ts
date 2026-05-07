@@ -2,14 +2,12 @@ import { api } from "@/lib/axios";
 
 import type {
 	Garage,
-	GaragePaginatedList,
 	GetGarageParams,
 	GetGaragesParams,
+	GaragePaginatedList,
 } from "./garages-types";
 
-const getGarages = (
-	params: GetGaragesParams,
-): Promise<GaragePaginatedList> =>
+const getGarages = (params: GetGaragesParams): Promise<GaragePaginatedList> =>
 	api.get<GaragePaginatedList>("/GetGaragesPaginatedList", { params });
 
 const getGarage = (params: GetGarageParams): Promise<Garage> =>

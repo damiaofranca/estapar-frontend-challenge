@@ -1,13 +1,12 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 
-import { QUERY_STALE_TIME } from "@/config/constants";
-
 import { garagesApi } from "./garages-service";
+import { QUERY_STALE_TIME } from "@/config/constants";
 import type {
 	Garage,
-	GaragePaginatedList,
 	GetGarageParams,
 	GetGaragesParams,
+	GaragePaginatedList,
 } from "./garages-types";
 
 const useGetGaragesQuery = (
@@ -31,8 +30,6 @@ const useGetGarageQuery = (
 	});
 
 export const garagesService = {
-	getGarages: garagesApi.getGarages,
-	getGarage: garagesApi.getGarage,
-	useGetGaragesQuery,
 	useGetGarageQuery,
+	useGetGaragesQuery,
 };

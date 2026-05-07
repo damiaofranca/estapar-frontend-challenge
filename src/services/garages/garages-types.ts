@@ -9,12 +9,12 @@ export interface GarageItem {
 }
 
 export interface GaragePaginatedList {
-	countRecords: number;
-	currentPage: number;
 	pageSize: number;
-	hasNextPage: number;
-	hasPreviousPage: number;
 	data: GarageItem[];
+	hasNextPage: number;
+	currentPage: number;
+	countRecords: number;
+	hasPreviousPage: number;
 }
 
 export interface GetGaragesParams {

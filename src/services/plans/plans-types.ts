@@ -1,11 +1,11 @@
 export interface Plan {
 	id: string;
+	active: string;
 	garageId: string;
 	description: string;
-	startValidity: string;
 	endValidity: string;
 	priceInCents: string;
-	active: string;
+	startValidity: string;
 	descriptionAvailable: string;
 	// API: typo "Cacellation"
 	amountDailyCacellationInCents: string;

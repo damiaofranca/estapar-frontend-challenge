@@ -1,14 +1,13 @@
 import {
-	useMutation,
 	useQuery,
+	useMutation,
 	useQueryClient,
-	type UseMutationResult,
 	type UseQueryResult,
+	type UseMutationResult,
 } from "@tanstack/react-query";
 
-import { QUERY_STALE_TIME } from "@/config/constants";
-
 import { plansApi } from "./plans-service";
+import { QUERY_STALE_TIME } from "@/config/constants";
 import type { CreatePlanPayload, GetPlansParams, Plan } from "./plans-types";
 
 const useCreatePlanMutation = (): UseMutationResult<
@@ -39,8 +38,8 @@ const useGetPlansQuery = (
 	});
 
 export const plansService = {
-	createPlan: plansApi.createPlan,
-	getPlans: plansApi.getPlans,
-	useCreatePlanMutation,
 	useGetPlansQuery,
+	useCreatePlanMutation,
+	getPlans: plansApi.getPlans,
+	createPlan: plansApi.createPlan,
 };
