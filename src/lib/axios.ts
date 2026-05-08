@@ -3,9 +3,11 @@ import axios, {
 	type AxiosRequestConfig,
 	type InternalAxiosRequestConfig,
 } from "axios";
+import { toast } from "react-toastify";
 
-import { ROUTES, STORAGE_KEYS } from "@/config/constants";
 import type { ApiError } from "@/types/api-types";
+import { ROUTES } from "@/config/constants";
+import { clearAuthToken, getAuthToken } from "@/store/auth-store";
 
 const extractErrorMessage = (error: AxiosError): string => {
 	const data = error.response?.data;
@@ -30,9 +32,16 @@ const axiosInstance = axios.create({
 	baseURL: import.meta.env.VITE_API_URL,
 });
 
+const isAuthenticateRequest = (
+	config: InternalAxiosRequestConfig | undefined,
+): boolean => {
+	const url = config?.url ?? "";
+	return url.includes("Authenticate");
+};
+
 axiosInstance.interceptors.request.use(
 	(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
-		const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
+		const token = getAuthToken();
 
 		if (token) {
 			config.headers.set("Authorization", `Bearer ${token}`);
@@ -46,12 +55,19 @@ axiosInstance.interceptors.response.use(
 	(response) => response.data,
 	(error: AxiosError) => {
 		if (error.response?.status === 401) {
-			localStorage.removeItem(STORAGE_KEYS.TOKEN);
-			window.location.href = ROUTES.LOGIN;
-			return Promise.reject(error);
+			clearAuthToken();
+			const message = extractErrorMessage(error);
+
+			if (!isAuthenticateRequest(error.config)) {
+				window.location.href = ROUTES.LOGIN;
+			}
+
+			toast.error(message);
+			return Promise.reject(new Error(message));
 		}
 
 		const message = extractErrorMessage(error);
+		toast.error(message);
 		return Promise.reject(new Error(message));
 	},
 );
