@@ -20,6 +20,12 @@
 	/** Gradiente ícone logo (superior / floresta) */
 	--color-estapar-green-dark: #2f8f44;
 	--color-estapar-lime-light: #9ae66e;
+	/** Azul escuro */
+	--color-estapar-dark-blue: #09090b;
+	/** Cinza escuro */
+	--color-estapar-dark-gray: #666666;
+	/** Cinza médio */
+	--color-estapar-medium-gray: #333333;
 
 	/* Texto */
 	--color-estapar-title: #333e4f;
