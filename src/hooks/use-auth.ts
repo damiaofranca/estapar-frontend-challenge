@@ -1,7 +1,8 @@
-import { jwtDecode } from "jwt-decode";
+import { useMemo } from "react";
 
-import { ROUTES, STORAGE_KEYS } from "@/config/constants";
-import type { DecodedAuthToken } from "@/services/auth/auth-types";
+import { ROUTES } from "@/config/constants";
+import { useAuthStore } from "@/store/auth-store";
+import { tryDecodeAuthTokenClaims } from "@/lib/auth-token";
 
 export interface AuthUser {
 	name: string;
@@ -9,42 +10,35 @@ export interface AuthUser {
 }
 
 export interface UseAuthReturn {
-	isAuthenticated: boolean;
-	user: AuthUser | null;
 	logout: () => void;
+	user: AuthUser | null;
+	isAuthenticated: boolean;
 }
 
-const getDecodedToken = (): DecodedAuthToken | null => {
-	const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
-
-	if (!token) return null;
-
-	try {
-		return jwtDecode<DecodedAuthToken>(token);
-	} catch {
-		return null;
-	}
-};
-
 export const useAuth = (): UseAuthReturn => {
-	const decoded = getDecodedToken();
-	const isAuthenticated = decoded !== null;
+	const token = useAuthStore((state) => state.token);
+	const clearToken = useAuthStore((state) => state.clearToken);
 
-	const user: AuthUser | null = decoded
-		? {
-				name: decoded.name ?? decoded.username ?? decoded.sub ?? "Usuário",
-				username: decoded.username,
-			}
-		: null;
+	const decoded = useMemo(() => tryDecodeAuthTokenClaims(token), [token]);
+	const isAuthenticated = Boolean(token);
+
+	const user: AuthUser | null = !token
+		? null
+		: decoded
+			? {
+					name: decoded.name ?? decoded.username ?? decoded.sub ?? "Usuário",
+					username: decoded.username,
+				}
+			: { name: "Usuário" };
 
 	const logout = (): void => {
-		localStorage.removeItem(STORAGE_KEYS.TOKEN);
+		clearToken();
 		window.location.href = ROUTES.LOGIN;
 	};
 
 	return {
-		isAuthenticated,
 		user,
 		logout,
+		isAuthenticated,
 	};
 };
