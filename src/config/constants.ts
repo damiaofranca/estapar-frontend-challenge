@@ -6,7 +6,7 @@ export const ROUTES = {
 	LOGIN: "/login",
 	HOME: "/",
 	GARAGES: "/garagens",
-	GARAGE_DETAIL: (id: string): string => `/garagens/${id}`,
+	MENSALISTAS: "/mensalistas",
 };
 
 export const PAGINATION_DEFAULTS = {
