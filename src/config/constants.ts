@@ -1,6 +1,5 @@
 export const STORAGE_KEYS = {
-	TOKEN: "@estapar:token",
-	USER: "@estapar:user",
+	AUTH: "@estapar:auth",
 };
 
 export const ROUTES = {
