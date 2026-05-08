@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { KeyboardEvent, ReactElement } from "react";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import { cn } from "@/lib/cn";
 import { useAuth, type AuthUser } from "@/hooks/use-auth";
@@ -15,6 +16,7 @@ import { UserIcon } from "@/components/icons/user";
 
 const SIDEBAR_COLLAPSE_BREAKPOINT_PX = 1024;
 const SIDEBAR_EXPANDED_STORAGE_KEY = "estapar.sidebar.expanded";
+const SIDEBAR_TOOLTIP_ID = "estapar-sidebar-tooltip";
 
 type MenuItem = {
 	key: "garages" | "mensalistas";
@@ -122,6 +124,7 @@ type SidebarNavItemProps = {
 	isActive: boolean;
 	icon: ReactElement;
 	isExpanded: boolean;
+	tooltipId: string;
 };
 
 const SidebarNavItem = ({
@@ -130,6 +133,7 @@ const SidebarNavItem = ({
 	label,
 	isActive,
 	isExpanded,
+	tooltipId,
 }: SidebarNavItemProps): ReactElement => {
 	return (
 		<Link
@@ -137,6 +141,8 @@ const SidebarNavItem = ({
 			tabIndex={0}
 			aria-label={label}
 			aria-current={isActive ? "page" : undefined}
+			data-tooltip-id={!isExpanded ? tooltipId : undefined}
+			data-tooltip-content={!isExpanded ? label : undefined}
 			className={cn([
 				"flex items-center justify-between px-4 py-4 hover:bg-estapar-muted-surface-alt",
 				"bg-estapar-surface transition-colors",
@@ -254,6 +260,7 @@ const Sidebar = ({
 							icon={item.icon}
 							label={item.label}
 							isActive={isActive}
+							tooltipId={SIDEBAR_TOOLTIP_ID}
 							isExpanded={isExpandedEffective}
 						/>
 					);
@@ -331,6 +338,7 @@ const AuthenticatedLayout = (): ReactElement => {
 
 	return (
 		<div className="flex min-h-screen bg-estapar-canvas">
+			<ReactTooltip id={SIDEBAR_TOOLTIP_ID} />
 			<Sidebar
 				pathname={pathname}
 				menuItems={menuItems}
