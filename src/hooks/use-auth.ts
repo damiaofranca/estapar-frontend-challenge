@@ -26,10 +26,14 @@ export const useAuth = (): UseAuthReturn => {
 		? null
 		: decoded
 			? {
-					name: decoded.name ?? decoded.username ?? decoded.sub ?? "Usuário",
+					name:
+						decoded.name ??
+						decoded.username ??
+						decoded.sub ??
+						"Roberto Freitas",
 					username: decoded.username,
 				}
-			: { name: "Usuário" };
+			: { name: "Roberto Freitas" };
 
 	const logout = (): void => {
 		clearToken();
