@@ -15,6 +15,7 @@ export const buildPlanRows = (plans: Plan[]): PlanRow[] =>
 			...plan,
 			occupiedForDisplay: occupied,
 			availableVacancies: Math.max(0, total - occupied),
+			VeichleType: plan.VeichleType || plan.veichleType,
 		}
 	})
 
