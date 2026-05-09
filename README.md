@@ -117,3 +117,18 @@ yarn preview   # pré-visualização do build
 | `yarn lint` | ESLint (inclui Prettier integrado na configuração do projeto). |
 | `yarn format:check` | Verificação Prettier em arquivos fonte. |
 
+## Utilização de IA
+
+O **Cursor** foi utilizado ao longo do desenvolvimento como ferramenta de apoio em diferentes frentes, sempre com revisão humana antes de cada commit
+
+**Como a IA foi aplicada no fluxo:**
+
+| Frente | Uso |
+| :--- | :--- |
+| **Padronização de código** | Reforço de convenções (nomes, tipos, organização de pastas, early returns, classes Tailwind) e checagem de aderência às regras do projeto. |
+| **Documentação** | Apoio na escrita e estruturação deste `README.md`, comentários pontuais e mensagens de commit no padrão Conventional Commits. |
+| **Pair coding** | Discussão de abordagens, geração de boilerplate (services, hooks, schemas Zod, componentes UI) e refino iterativo de implementações. |
+| **Revisão e refatoração** | Sugestões de melhorias de legibilidade, extração de componentes/hooks e identificação de duplicação. |
+| **Depuração** | Auxílio na leitura de stack traces, hipóteses de causa raiz e validação de fixes. |
+
+**O que permaneceu sob responsabilidade humana:** decisões de arquitetura, escolha de bibliotecas, modelagem de dados, validação contra a API real e aprovação final de todo código antes do commit.
