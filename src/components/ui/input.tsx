@@ -1,11 +1,13 @@
 import {
 	forwardRef,
 	useId,
+	type ChangeEvent,
 	type ComponentPropsWithoutRef,
 	type ReactNode,
 } from "react";
 
 import { cn } from "@/lib/cn";
+import type { InputMask } from "@/utils/masks";
 
 import { Label, type LabelProps } from "./label";
 
@@ -24,6 +26,7 @@ type InputOwnProps = {
 	error?: ReactNode;
 	hint?: ReactNode;
 	icon?: ReactNode;
+	mask?: InputMask;
 	sideIcon?: "left" | "right";
 	rootClassName?: string;
 };
@@ -43,8 +46,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 		{
 			hint,
 			icon,
+			mask,
 			error,
 			label,
+			onChange,
 			className,
 			labelProps,
 			id: idProp,
@@ -57,6 +62,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 		},
 		ref,
 	) => {
+		const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+			if (mask) {
+				event.target.value = mask.format(event.target.value);
+			}
+			onChange?.(event);
+		};
 		const reactId = useId();
 		const inputId =
 			idProp ??
@@ -97,6 +108,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 				ref={ref}
 				type={type}
 				data-slot="input"
+				onChange={handleChange}
 				className={inputClassName}
 				aria-invalid={ariaInvalid}
 				id={composed ? inputId : idProp}
