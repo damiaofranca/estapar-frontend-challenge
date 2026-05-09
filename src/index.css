@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "rc-drawer/assets/index.css";
 
 /**
  * Paleta Estapar extraída dos layouts (login, B2B, garagens, modal “Novo Plano”).
@@ -19,6 +20,7 @@
 	--color-estapar-mint-bright: #80e0c0;
 	/** Gradiente ícone logo (superior / floresta) */
 	--color-estapar-green-dark: #2f8f44;
+	/** Verde claro */
 	--color-estapar-lime-light: #9ae66e;
 	/** Azul escuro */
 	--color-estapar-dark-blue: #09090b;
@@ -35,17 +37,21 @@
 	--color-estapar-muted: #6b7280;
 	--color-estapar-subtle: #9ca3af;
 	--color-estapar-caption: #71717a;
+	/** Cinza para ícones (stats cards) */
+	--color-estapar-icon: #6c7280;
 
 	/* Superfícies */
 	--color-estapar-canvas: #f9fafb;
 	--color-estapar-surface: #ffffff;
 	--color-estapar-muted-surface: #f3f4f6;
 	--color-estapar-muted-surface-alt: #f4f4f5;
+	--color-estapar-sidebar-surface: #f9fafb;
 
 	/* Bordas */
 	--color-estapar-border: #e4e4e7;
 	--color-estapar-border-light: #e5e7eb;
 	--color-estapar-border-input: #d1d5db;
+	--color-estapar-border-lime-light: #3CB87E;
 
 	/* Modal overlay */
 	--color-estapar-overlay: rgb(0 0 0 / 50%);
@@ -53,7 +59,9 @@
 	/* Foco / anel */
 	--color-estapar-ring: #82d143;
 
-	/* Erro (formulário / validação) */
+	/* Estados / feedback (formulário, validação, status) */
+	--color-estapar-success: #43c457;
+	--color-estapar-warning: #ef7404;
 	--color-estapar-error: #dc2626;
 }
 
@@ -70,6 +78,7 @@ body .react-tooltip {
 	line-height: 1;
 	font-size: 12px;
 	border-radius: 8px;
+	z-index: 99999;
 	color: var(--color-estapar-surface);
 	background: var(--color-estapar-dark-blue);
 	border: 1px solid rgb(255 255 255 / 10%);
