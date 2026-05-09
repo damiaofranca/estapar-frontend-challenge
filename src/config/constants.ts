@@ -1,3 +1,5 @@
+export const ESTAPAR_LOGO_SRC = `${import.meta.env.BASE_URL}estapar-logo.png`
+
 export const STORAGE_KEYS = {
   AUTH: "@estapar:auth",
 }
