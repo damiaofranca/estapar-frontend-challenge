@@ -1,13 +1,12 @@
 import {
 	useQuery,
 	useMutation,
-	useQueryClient,
 	type UseQueryResult,
 	type UseMutationResult,
 } from "@tanstack/react-query";
 
 import { plansApi } from "./plans-service";
-import { QUERY_STALE_TIME } from "@/config/constants";
+import { queryClient } from "@/lib/queryClient";
 import type { CreatePlanPayload, GetPlansParams, Plan } from "./plans-types";
 
 const useCreatePlanMutation = (): UseMutationResult<
@@ -15,17 +14,13 @@ const useCreatePlanMutation = (): UseMutationResult<
 	Error,
 	CreatePlanPayload
 > => {
-	const queryClient = useQueryClient();
-
 	return useMutation<void, Error, CreatePlanPayload>({
 		mutationFn: plansApi.createPlan,
-		onSuccess: (_data, variables) => {
-			void queryClient.invalidateQueries({
-				queryKey: ["garage", variables.garageId],
-			});
+		onSuccess: () => {
+			void queryClient.invalidateQueries({ queryKey: ["plans"] })
 		},
-	});
-};
+	})
+}
 
 const useGetPlansQuery = (
 	params?: GetPlansParams,
@@ -33,9 +28,8 @@ const useGetPlansQuery = (
 	useQuery<Plan[], Error>({
 		queryKey: ["plans", params?.garageId ?? null],
 		queryFn: () => plansApi.getPlans(params),
-		staleTime: QUERY_STALE_TIME.SHORT,
-		enabled: true,
-	});
+		enabled: !!params?.garageId,
+	})
 
 export const plansService = {
 	useGetPlansQuery,

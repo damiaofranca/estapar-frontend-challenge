@@ -1,21 +1,20 @@
 export interface Plan {
-	id: string;
-	active: string;
-	garageId: string;
-	description: string;
-	endValidity: string;
-	priceInCents: string;
-	startValidity: string;
-	descriptionAvailable: string;
-	// API: typo "Cacellation"
-	amountDailyCacellationInCents: string;
-	// API: typo "veichle"
-	veichleType: string;
-	totalVacancies: number;
+	idPlan: number
+	idGarage: number
+	description: string
+	VeichleType: number
+	startValidity: string
+	totalVacancies: number
+	active: boolean | string
+	endValidity: string | null
+	occupiedVacancies?: number
+	descriptionAvailable: string
+	priceInCents: number | string
+	amountDailyCancellationInCents: number
 }
 
-export type CreatePlanPayload = Omit<Plan, "id">;
+export type CreatePlanPayload = Omit<Plan, "idPlan">
 
 export interface GetPlansParams {
-	garageId?: string;
+	garageId?: string
 }
