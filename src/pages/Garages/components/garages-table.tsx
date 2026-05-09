@@ -11,6 +11,7 @@ type GaragesTableProps = {
   pageIndex: number
   pageSize: number
   totalCount: number
+  emptyMessage?: string
   onPageChange: (pageIndex: number) => void
   onViewGarage: (garageId: string) => void
 }
@@ -21,6 +22,7 @@ export const GaragesTable = ({
   pageSize,
   totalCount,
   isLoading,
+  emptyMessage,
   onPageChange,
   onViewGarage,
 }: GaragesTableProps): ReactElement => {
@@ -83,7 +85,7 @@ export const GaragesTable = ({
       data={rows}
       columns={columns}
       getRowKey={(row) => row.code}
-      emptyMessage={isLoading ? "Carregando..." : "Nenhuma garagem encontrada."}
+      emptyMessage={emptyMessage ?? (isLoading ? "Carregando..." : "Nenhuma garagem encontrada.")}
       pagination={{
         pageIndex,
         pageSize,

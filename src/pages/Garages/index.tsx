@@ -15,8 +15,9 @@ const GaragesPage = (): ReactElement => {
     totalCount,
     garagesQuery,
     isDetailsOpen,
-    mensalistaDigital,
     selectedGarageId,
+    mensalistaDigital,
+    tableEmptyMessage,
 
     onViewGarage,
     onPageChange,
@@ -51,6 +52,7 @@ const GaragesPage = (): ReactElement => {
           totalCount={totalCount}
           onPageChange={onPageChange}
           onViewGarage={onViewGarage}
+          emptyMessage={tableEmptyMessage}
           isLoading={garagesQuery.isFetching}
         />
       </section>

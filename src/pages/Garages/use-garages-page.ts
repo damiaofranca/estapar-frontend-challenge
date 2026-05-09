@@ -32,17 +32,26 @@ export const useGaragesPage = () => {
     [pageIndex, debouncedGarageName],
   )
 
-  const garagesQuery = useGetGaragesQuery(filters)
+  const garagesQuery = useGetGaragesQuery(filters, { enabled: mensalistaDigital })
 
-  const totalCount = garagesQuery.data?.countRecords ?? 0
+  const totalCount = mensalistaDigital ? (garagesQuery.data?.countRecords ?? 0) : 0
 
   const rows = useMemo<GaragesRow[]>(() => {
+    if (!mensalistaDigital) {
+      return []
+    }
     const garages = garagesQuery.data?.data ?? []
     return garages.map((g) => ({
       ...g,
       cityUf: getCityUf(g),
     }))
-  }, [garagesQuery.data])
+  }, [garagesQuery.data, mensalistaDigital])
+
+  const tableEmptyMessage = !mensalistaDigital
+    ? "Ative o filtro \u201CMensalista Digital\u201D para visualizar as garagens habilitadas."
+    : garagesQuery.isFetching
+      ? "Carregando..."
+      : "Nenhuma garagem encontrada."
 
   const handleGarageNameChange = (value: string): void => {
     setPageIndex(0)
@@ -50,6 +59,7 @@ export const useGaragesPage = () => {
   }
 
   const handleMensalistaDigitalChange = (checked: boolean): void => {
+    setPageIndex(0)
     setMensalistaDigital(checked)
   }
 
@@ -86,6 +96,7 @@ export const useGaragesPage = () => {
     garagesQuery,
     mensalistaDigital,
     selectedGarageId,
+    tableEmptyMessage,
     pageSize: DEFAULT_PAGE_SIZE,
 
     onPageChange: setPageIndex,
