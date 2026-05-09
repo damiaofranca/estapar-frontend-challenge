@@ -9,13 +9,11 @@ export const ROUTES = {
 	MENSALISTAS: "/mensalistas",
 };
 
+export const QUERY_PARAMS = {
+	GARAGE_ID: "garageId",
+};
+
 export const PAGINATION_DEFAULTS = {
 	PAGE: 1,
 	PAGE_SIZE: 10,
-};
-
-export const QUERY_STALE_TIME = {
-	SHORT: 1000 * 60,
-	DEFAULT: 1000 * 60 * 5,
-	LONG: 1000 * 60 * 30,
 };
