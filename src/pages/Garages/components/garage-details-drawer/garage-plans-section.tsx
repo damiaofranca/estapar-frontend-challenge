@@ -1,7 +1,6 @@
 import { useMemo, useState, type ReactElement } from "react"
 
 import { cn } from "@/lib/cn"
-import { useGetPlansQuery } from "@/hooks"
 import { Badge } from "@/components/ui"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
@@ -11,8 +10,9 @@ import { formatInteger, isActiveFlag } from "@/lib/format"
 import { Table, type TableColumn } from "@/components/ui/table"
 import { MensalistasIcon } from "@/components/icons/mensalistas"
 
-import { VehicleType } from "@/services"
+import { plansService } from "@/services"
 import { PlanFormModal } from "./plan-form-modal"
+import { VehicleType } from "@/services/plans/plans-types"
 import { MotocycleIcon } from "@/components/icons/motocycle"
 import { buildPlanRows, formatPlanValue, type PlanRow } from "@/utils/garage-plans-utils"
 
@@ -28,7 +28,7 @@ type GaragePlansSectionProps = {
 }
 
 export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): ReactElement => {
-  const plansQuery = useGetPlansQuery({ garageId })
+  const plansQuery = plansService.useGetPlansQuery({ garageId })
 
   const [formState, setFormState] = useState<PlanFormState>(null)
 

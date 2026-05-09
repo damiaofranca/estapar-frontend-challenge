@@ -1,15 +1,15 @@
 import { useMemo, useState, type ReactElement } from "react"
 
-import { useGetGarageQuery } from "@/hooks"
 import { Drawer } from "@/components/ui/drawer"
 import { QrCode } from "@/components/ui/qr-code"
 import { Tabs, type TabItem } from "@/components/ui/tabs"
 import { QUERY_PARAMS, ROUTES } from "@/config/constants"
 
-import { GarageDetailsHeader, GarageDetailTitle } from "./garage-details-header"
-import { GarageDetailsSidebar, type GarageDetailsSection } from "./garage-details-sidebar"
+import { garagesService } from "@/services"
 import { GarageStatsCards } from "./garage-stats-cards"
 import { GaragePlansSection } from "./garage-plans-section"
+import { GarageDetailsHeader, GarageDetailTitle } from "./garage-details-header"
+import { GarageDetailsSidebar, type GarageDetailsSection } from "./garage-details-sidebar"
 
 const buildGarageDeepLink = (garageId: string): string => {
   if (typeof window === "undefined") {
@@ -41,7 +41,7 @@ export const GarageDetailsDrawer = ({ open, garageId, onClose }: GarageDetailsDr
   const [activeTab, setActiveTab] = useState<GarageDetailsTab>("digital")
   const [activeSection, setActiveSection] = useState<GarageDetailsSection>("plans")
 
-  const garageQuery = useGetGarageQuery({
+  const garageQuery = garagesService.useGetGarageQuery({
     garageId: garageId ?? "",
   })
 
