@@ -1,50 +1,44 @@
-import { jwtDecode } from "jwt-decode";
+import { useMemo } from "react"
 
-import { ROUTES, STORAGE_KEYS } from "@/config/constants";
-import type { DecodedAuthToken } from "@/services/auth/auth-types";
+import { ROUTES } from "@/config/constants"
+import { useAuthStore } from "@/store/auth-store"
+import { tryDecodeAuthTokenClaims } from "@/lib/auth-token"
 
 export interface AuthUser {
-	name: string;
-	username?: string;
+  name: string
+  username?: string
 }
 
 export interface UseAuthReturn {
-	isAuthenticated: boolean;
-	user: AuthUser | null;
-	logout: () => void;
+  logout: () => void
+  user: AuthUser | null
+  isAuthenticated: boolean
 }
 
-const getDecodedToken = (): DecodedAuthToken | null => {
-	const token = localStorage.getItem(STORAGE_KEYS.TOKEN);
-
-	if (!token) return null;
-
-	try {
-		return jwtDecode<DecodedAuthToken>(token);
-	} catch {
-		return null;
-	}
-};
-
 export const useAuth = (): UseAuthReturn => {
-	const decoded = getDecodedToken();
-	const isAuthenticated = decoded !== null;
+  const token = useAuthStore((state) => state.token)
+  const clearToken = useAuthStore((state) => state.clearToken)
 
-	const user: AuthUser | null = decoded
-		? {
-				name: decoded.name ?? decoded.username ?? decoded.sub ?? "Usuário",
-				username: decoded.username,
-			}
-		: null;
+  const decoded = useMemo(() => tryDecodeAuthTokenClaims(token), [token])
+  const isAuthenticated = Boolean(token)
 
-	const logout = (): void => {
-		localStorage.removeItem(STORAGE_KEYS.TOKEN);
-		window.location.href = ROUTES.LOGIN;
-	};
+  const user: AuthUser | null = !token
+    ? null
+    : decoded
+      ? {
+          name: decoded.name ?? decoded.username ?? decoded.sub ?? "Roberto Freitas",
+          username: decoded.username,
+        }
+      : { name: "Roberto Freitas" }
 
-	return {
-		isAuthenticated,
-		user,
-		logout,
-	};
-};
+  const logout = (): void => {
+    clearToken()
+    window.location.href = ROUTES.LOGIN
+  }
+
+  return {
+    user,
+    logout,
+    isAuthenticated,
+  }
+}

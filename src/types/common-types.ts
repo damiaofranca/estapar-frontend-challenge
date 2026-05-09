@@ -1,4 +1,4 @@
-export type Status = 'active' | 'inactive'
+export type Status = "active" | "inactive"
 
 export interface SelectOption<T = string> {
   label: string
