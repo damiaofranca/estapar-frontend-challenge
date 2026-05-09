@@ -1,5 +1,7 @@
 import js from '@eslint/js'
+import eslintConfigPrettier from 'eslint-config-prettier'
 import globals from 'globals'
+import eslintPluginPrettier from 'eslint-plugin-prettier'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
@@ -18,5 +20,12 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    plugins: {
+      prettier: eslintPluginPrettier,
+    },
+    rules: {
+      'prettier/prettier': 'warn',
+    },
   },
+  eslintConfigPrettier,
 ])
