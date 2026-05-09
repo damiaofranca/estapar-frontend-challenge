@@ -11,8 +11,7 @@ export type GaragesRow = GarageItem & {
 
 const DEFAULT_PAGE_SIZE = PAGINATION_DEFAULTS.PAGE_SIZE
 
-const getCityUf = (garage: GarageItem): string =>
-	`${garage.city}/${garage.state}`
+const getCityUf = (garage: GarageItem): string => `${garage.city}/${garage.state}`
 
 export const useGaragesPage = () => {
 	const [pageIndex, setPageIndex] = useState(0)
@@ -28,25 +27,22 @@ export const useGaragesPage = () => {
 		() => ({
 			pageSize: DEFAULT_PAGE_SIZE,
 			currentPage: pageIndex + 1,
-			garageName:
-				debouncedGarageName.length > 0 ? debouncedGarageName : undefined,
+			garageName: debouncedGarageName.length > 0 ? debouncedGarageName : undefined,
 		}),
 		[pageIndex, debouncedGarageName],
 	)
 
 	const garagesQuery = useGetGaragesQuery(filters)
 
-	const garages = garagesQuery.data?.data ?? []
 	const totalCount = garagesQuery.data?.countRecords ?? 0
 
-	const rows = useMemo<GaragesRow[]>(
-		() =>
-			garages.map((g) => ({
-				...g,
-				cityUf: getCityUf(g),
-			})),
-		[garages],
-	)
+	const rows = useMemo<GaragesRow[]>(() => {
+		const garages = garagesQuery.data?.data ?? []
+		return garages.map((g) => ({
+			...g,
+			cityUf: getCityUf(g),
+		}))
+	}, [garagesQuery.data])
 
 	const handleGarageNameChange = (value: string): void => {
 		setPageIndex(0)

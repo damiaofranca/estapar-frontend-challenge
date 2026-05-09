@@ -1,11 +1,8 @@
-import type { SVGProps } from "react";
+import type { SVGProps } from "react"
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/cn"
 
-export const MensalistasIcon = ({
-	className,
-	...props
-}: SVGProps<SVGSVGElement>) => (
+export const MensalistasIcon = ({ className, ...props }: SVGProps<SVGSVGElement>) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width="1em"
@@ -27,4 +24,4 @@ export const MensalistasIcon = ({
 			d="M6.44 9.617a2.147 2.147 0 1 1 0 4.294 2.147 2.147 0 0 1 0-4.294ZM17.37 9.617a2.147 2.147 0 1 1 0 4.294 2.147 2.147 0 0 1 0-4.294Z"
 		/>
 	</svg>
-);
+)

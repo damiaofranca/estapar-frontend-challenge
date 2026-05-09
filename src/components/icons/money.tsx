@@ -10,13 +10,7 @@ export const MoneyIcon = (props: SVGProps<SVGSVGElement>) => (
 		aria-hidden
 		{...props}
 	>
-		<circle
-			cx={10}
-			cy={10}
-			r={7.5}
-			stroke="currentColor"
-			strokeWidth={1.6}
-		/>
+		<circle cx={10} cy={10} r={7.5} stroke="currentColor" strokeWidth={1.6} />
 		<path
 			d="M10 5.5v9M12.25 7.75H8.875a1.375 1.375 0 0 0 0 2.75h2.25a1.375 1.375 0 0 1 0 2.75H7.5"
 			stroke="currentColor"

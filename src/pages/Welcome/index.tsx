@@ -1,20 +1,20 @@
-import type { ComponentType, ReactElement, SVGProps } from "react";
-import { Link } from "react-router-dom";
+import type { ComponentType, ReactElement, SVGProps } from "react"
+import { Link } from "react-router-dom"
 
-import { cn } from "@/lib/cn";
-import { ROUTES } from "@/config/constants";
-import { GaragesIcon } from "@/components/icons/garage";
-import { MensalistasIcon } from "@/components/icons/mensalistas";
-import { ChevronRightIcon } from "@/components/icons/chevron-right";
+import { cn } from "@/lib/cn"
+import { ROUTES } from "@/config/constants"
+import { GaragesIcon } from "@/components/icons/garage"
+import { MensalistasIcon } from "@/components/icons/mensalistas"
+import { ChevronRightIcon } from "@/components/icons/chevron-right"
 
 type WelcomeCardConfig = {
-	to: string;
-	title: string;
-	description: string;
-	Icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
+	to: string
+	title: string
+	description: string
+	Icon: ComponentType<SVGProps<SVGSVGElement>>
+}
 
-type WelcomeCardProps = WelcomeCardConfig;
+type WelcomeCardProps = WelcomeCardConfig
 
 const WELCOME_CARDS = [
 	{
@@ -27,17 +27,11 @@ const WELCOME_CARDS = [
 		title: "Mensalistas",
 		Icon: MensalistasIcon,
 		to: ROUTES.MENSALISTAS,
-		description:
-			"Contrate vagas adicionais para seus funcionários ou visitantes.",
+		description: "Contrate vagas adicionais para seus funcionários ou visitantes.",
 	},
-];
+]
 
-const WelcomeCard = ({
-	to,
-	title,
-	description,
-	Icon,
-}: WelcomeCardProps): ReactElement => (
+const WelcomeCard = ({ to, title, description, Icon }: WelcomeCardProps): ReactElement => (
 	<Link
 		to={to}
 		aria-label={`Ir para ${title}`}
@@ -57,16 +51,12 @@ const WelcomeCard = ({
 			</div>
 
 			<div className="flex flex-col gap-1">
-				<h2 className="text-sm font-semibold text-estapar-dark-blue">
-					{title}
-				</h2>
-				<p className="text-xs leading-relaxed text-estapar-dark-gray">
-					{description}
-				</p>
+				<h2 className="text-sm font-semibold text-estapar-dark-blue">{title}</h2>
+				<p className="text-xs leading-relaxed text-estapar-dark-gray">{description}</p>
 			</div>
 		</div>
 	</Link>
-);
+)
 
 const WelcomePage = (): ReactElement => (
 	<div className="w-full max-w-5xl">
@@ -75,8 +65,8 @@ const WelcomePage = (): ReactElement => (
 				Bem-vindo ao Portal Estapar B2B
 			</h1>
 			<p className="max-w-2xl text-sm leading-relaxed text-estapar-dark-gray">
-				Gerencie seus serviços de estacionamento, acesse relatórios, configure
-				credenciais e contrate planos de mensalidade em um só lugar.
+				Gerencie seus serviços de estacionamento, acesse relatórios, configure credenciais e
+				contrate planos de mensalidade em um só lugar.
 			</p>
 		</header>
 
@@ -86,6 +76,6 @@ const WelcomePage = (): ReactElement => (
 			))}
 		</section>
 	</div>
-);
+)
 
-export default WelcomePage;
+export default WelcomePage

@@ -1,16 +1,12 @@
-import {
-	forwardRef,
-	type ComponentPropsWithoutRef,
-	type ReactNode,
-} from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react"
 
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/cn"
 
-export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
-export type ButtonSize = "sm" | "md" | "lg";
+export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost"
+export type ButtonSize = "sm" | "md" | "lg"
 
 const buttonBaseClassName =
-	"inline-flex items-center justify-center gap-2 font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-estapar-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60";
+	"inline-flex items-center justify-center gap-2 font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-estapar-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60"
 
 const buttonVariantClassName: Record<ButtonVariant, string> = {
 	primary:
@@ -21,30 +17,27 @@ const buttonVariantClassName: Record<ButtonVariant, string> = {
 		"border border-estapar-border bg-estapar-surface text-estapar-label shadow-sm hover:bg-estapar-muted-surface focus-visible:ring-offset-estapar-surface",
 	ghost:
 		"text-estapar-body hover:bg-estapar-muted-surface focus-visible:ring-offset-estapar-canvas",
-};
+}
 
 const buttonSizeClassName: Record<ButtonSize, string> = {
 	sm: "h-8 min-h-8 rounded-md px-3 text-xs",
 	md: "h-10 min-h-10 rounded-md px-4 text-sm",
 	lg: "h-11 min-h-11 rounded-lg px-4 text-sm",
-};
+}
 
 const buttonIconSlotClassName: Record<ButtonSize, string> = {
 	sm: "inline-flex shrink-0 items-center justify-center [&_svg]:size-3.5",
 	md: "inline-flex shrink-0 items-center justify-center [&_svg]:size-4",
 	lg: "inline-flex shrink-0 items-center justify-center [&_svg]:size-4",
-};
+}
 
 type ButtonSpinnerProps = {
-	size: ButtonSize;
-};
+	size: ButtonSize
+}
 
 const ButtonSpinner = ({ size }: ButtonSpinnerProps) => (
 	<span
-		className={cn(
-			buttonIconSlotClassName[size],
-			"animate-spin motion-reduce:animate-none",
-		)}
+		className={cn(buttonIconSlotClassName[size], "animate-spin motion-reduce:animate-none")}
 		aria-hidden
 	>
 		<svg
@@ -54,14 +47,7 @@ const ButtonSpinner = ({ size }: ButtonSpinnerProps) => (
 			className="size-[1em] shrink-0"
 			aria-hidden
 		>
-			<circle
-				className="opacity-25"
-				cx="12"
-				cy="12"
-				r="10"
-				stroke="currentColor"
-				strokeWidth="4"
-			/>
+			<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
 			<path
 				className="opacity-75"
 				fill="currentColor"
@@ -69,15 +55,15 @@ const ButtonSpinner = ({ size }: ButtonSpinnerProps) => (
 			/>
 		</svg>
 	</span>
-);
+)
 
 export type ButtonProps = ComponentPropsWithoutRef<"button"> & {
-	size?: ButtonSize;
-	loading?: boolean;
-	endIcon?: ReactNode;
-	startIcon?: ReactNode;
-	variant?: ButtonVariant;
-};
+	size?: ButtonSize
+	loading?: boolean
+	endIcon?: ReactNode
+	startIcon?: ReactNode
+	variant?: ButtonVariant
+}
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 	(
@@ -95,7 +81,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		},
 		ref,
 	) => {
-		const isDisabled = Boolean(disabled || loading);
+		const isDisabled = Boolean(disabled || loading)
 
 		return (
 			<button
@@ -125,8 +111,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 					</span>
 				) : null}
 			</button>
-		);
+		)
 	},
-);
+)
 
-Button.displayName = "Button";
+Button.displayName = "Button"

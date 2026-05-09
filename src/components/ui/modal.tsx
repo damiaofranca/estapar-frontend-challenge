@@ -1,10 +1,4 @@
-import {
-	useEffect,
-	useRef,
-	type MouseEvent,
-	type ReactElement,
-	type ReactNode,
-} from "react"
+import { useEffect, useRef, type MouseEvent, type ReactElement, type ReactNode } from "react"
 import { createPortal } from "react-dom"
 
 import { cn } from "@/lib/cn"
@@ -108,9 +102,7 @@ export const Modal = ({
 					<div className="flex items-start justify-between gap-4 px-6 pt-6">
 						<div className="flex flex-col gap-1">
 							{title != null ? (
-								<h2 className="text-lg font-semibold text-estapar-dark-blue">
-									{title}
-								</h2>
+								<h2 className="text-lg font-semibold text-estapar-dark-blue">{title}</h2>
 							) : null}
 							{description != null ? (
 								<p className="text-sm text-estapar-caption">{description}</p>
@@ -129,9 +121,7 @@ export const Modal = ({
 					</div>
 				)}
 
-				<div className={cn("flex-1 overflow-y-auto px-6 py-5", bodyClassName)}>
-					{children}
-				</div>
+				<div className={cn("flex-1 overflow-y-auto px-6 py-5", bodyClassName)}>{children}</div>
 			</div>
 		</div>,
 		document.body,

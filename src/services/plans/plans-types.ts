@@ -22,21 +22,21 @@ export interface Plan {
 }
 
 export interface CreatePlanPayload {
-	id?: string;
-	active: string;
-	garageId: string;
-	description: string;
-	endValidity: string;
-	veichleType: string;
-	priceInCents: string;
-	startValidity: string;
-	totalVacancies: number;
-	descriptionAvailable: string;
-	amountDailyCacellationInCents: string;
+	id?: string
+	active: string
+	garageId: string
+	description: string
+	endValidity: string
+	veichleType: string
+	priceInCents: string
+	startValidity: string
+	totalVacancies: number
+	descriptionAvailable: string
+	amountDailyCacellationInCents: string
 }
 
 export interface UpdatePlanPayload extends Omit<CreatePlanPayload, "id"> {
-	id: string;
+	id: string
 }
 
 export interface GetPlansParams {

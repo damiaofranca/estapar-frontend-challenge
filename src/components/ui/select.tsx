@@ -1,9 +1,4 @@
-import {
-	forwardRef,
-	useId,
-	type ComponentPropsWithoutRef,
-	type ReactNode,
-} from "react"
+import { forwardRef, useId, type ComponentPropsWithoutRef, type ReactNode } from "react"
 
 import { cn } from "@/lib/cn"
 
@@ -28,8 +23,7 @@ type SelectOwnProps = {
 	rootClassName?: string
 }
 
-export type SelectProps = Omit<ComponentPropsWithoutRef<"select">, "children"> &
-	SelectOwnProps
+export type SelectProps = Omit<ComponentPropsWithoutRef<"select">, "children"> & SelectOwnProps
 
 const fieldRootClassName =
 	"flex flex-col gap-2 has-[[data-slot=select]:disabled]:[&_label]:pointer-events-none has-[[data-slot=select]:disabled]:[&_label]:cursor-not-allowed has-[[data-slot=select]:disabled]:[&_label]:opacity-50"
@@ -66,11 +60,9 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 			composed && error != null && error !== false ? errorId : undefined,
 			composed && hint != null ? hintId : undefined,
 		].filter((v): v is string => typeof v === "string" && v.length > 0)
-		const ariaDescribedBy =
-			describedByParts.length > 0 ? describedByParts.join(" ") : undefined
+		const ariaDescribedBy = describedByParts.length > 0 ? describedByParts.join(" ") : undefined
 
-		const ariaInvalid =
-			ariaInvalidProp ?? (error != null && error !== false ? true : undefined)
+		const ariaInvalid = ariaInvalidProp ?? (error != null && error !== false ? true : undefined)
 
 		const selectEl = (
 			<div className="relative shrink-0">
@@ -89,11 +81,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 						</option>
 					) : null}
 					{options.map((option) => (
-						<option
-							key={option.value}
-							value={option.value}
-							disabled={option.disabled}
-						>
+						<option key={option.value} value={option.value} disabled={option.disabled}>
 							{option.label}
 						</option>
 					))}
@@ -125,11 +113,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 		return (
 			<div className={cn(fieldRootClassName, rootClassName)}>
 				{label != null ? (
-					<Label
-						htmlFor={selectId}
-						className={cn(labelClassName)}
-						{...restLabelProps}
-					>
+					<Label htmlFor={selectId} className={cn(labelClassName)} {...restLabelProps}>
 						{label}
 					</Label>
 				) : null}
@@ -137,11 +121,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
 				{selectEl}
 
 				{error != null && error !== false ? (
-					<p
-						id={errorId}
-						role="alert"
-						className="text-sm font-medium text-estapar-error"
-					>
+					<p id={errorId} role="alert" className="text-sm font-medium text-estapar-error">
 						{error}
 					</p>
 				) : null}

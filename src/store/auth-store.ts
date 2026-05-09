@@ -1,12 +1,12 @@
-import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
+import { create } from "zustand"
+import { createJSONStorage, persist } from "zustand/middleware"
 
-import { STORAGE_KEYS } from "@/config/constants";
+import { STORAGE_KEYS } from "@/config/constants"
 
 interface AuthState {
-	token: string | null;
-	setToken: (token: string) => void;
-	clearToken: () => void;
+	token: string | null
+	setToken: (token: string) => void
+	clearToken: () => void
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -22,11 +22,10 @@ export const useAuthStore = create<AuthState>()(
 			partialize: (state) => ({ token: state.token }),
 		},
 	),
-);
+)
 
-export const getAuthToken = (): string | null => useAuthStore.getState().token;
+export const getAuthToken = (): string | null => useAuthStore.getState().token
 
-export const clearAuthToken = (): void => useAuthStore.getState().clearToken();
+export const clearAuthToken = (): void => useAuthStore.getState().clearToken()
 
-export const setAuthToken = (token: string): void =>
-	useAuthStore.getState().setToken(token);
+export const setAuthToken = (token: string): void => useAuthStore.getState().setToken(token)

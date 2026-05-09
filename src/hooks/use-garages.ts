@@ -1,18 +1,16 @@
-import type { UseQueryResult } from "@tanstack/react-query";
+import type { UseQueryResult } from "@tanstack/react-query"
 
-import { garagesService } from "@/services";
+import { garagesService } from "@/services"
 import type {
 	Garage,
 	GaragePaginatedList,
 	GetGarageParams,
 	GetGaragesParams,
-} from "@/services/garages/garages-types";
+} from "@/services/garages/garages-types"
 
 export const useGetGaragesQuery = (
 	params: GetGaragesParams,
-): UseQueryResult<GaragePaginatedList, Error> =>
-	garagesService.useGetGaragesQuery(params);
+): UseQueryResult<GaragePaginatedList, Error> => garagesService.useGetGaragesQuery(params)
 
-export const useGetGarageQuery = (
-	params: GetGarageParams,
-): UseQueryResult<Garage, Error> => garagesService.useGetGarageQuery(params);
+export const useGetGarageQuery = (params: GetGarageParams): UseQueryResult<Garage, Error> =>
+	garagesService.useGetGarageQuery(params)

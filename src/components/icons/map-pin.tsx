@@ -17,12 +17,6 @@ export const MapPinIcon = (props: SVGProps<SVGSVGElement>) => (
 			strokeLinecap="round"
 			strokeLinejoin="round"
 		/>
-		<circle
-			cx={10}
-			cy={8}
-			r={2.25}
-			stroke="currentColor"
-			strokeWidth={1.6}
-		/>
+		<circle cx={10} cy={8} r={2.25} stroke="currentColor" strokeWidth={1.6} />
 	</svg>
 )

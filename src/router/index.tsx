@@ -1,34 +1,34 @@
-import { lazy, Suspense, type ReactElement } from "react";
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createElement, Suspense, type ReactElement } from "react"
+import { createBrowserRouter } from "react-router-dom"
 
-import { ROUTES } from "@/config/constants";
-import GuestRoute from "@/router/guest-route";
-import ProtectedRoute from "@/router/protected-route";
-import AuthenticatedLayout from "@/router/authenticated-layout";
-
-const LoginPage = lazy(() => import("@/pages/Login"));
-const GaragesPage = lazy(() => import("@/pages/Garages"));
-const WelcomePage = lazy(() => import("@/pages/Welcome"));
-const NotFoundPage = lazy(() => import("@/pages/NotFound"));
-const MensalistasPage = lazy(() => import("@/pages/Mensalistas"));
+import { ROUTES } from "@/config/constants"
+import GuestRoute from "@/router/guest-route"
+import ProtectedRoute from "@/router/protected-route"
+import AuthenticatedLayout from "@/router/authenticated-layout"
+import {
+	garagesPage,
+	loginPage,
+	mensalistasPage,
+	notFoundPage,
+	welcomePage,
+} from "@/router/lazy-route-modules"
+import rootOutlet from "@/router/root-outlet"
 
 const withSuspense = (node: ReactElement): ReactElement => (
 	<Suspense fallback={null}>{node}</Suspense>
-);
-
-const RootLayout = (): ReactElement => <Outlet />;
+)
 
 export const router = createBrowserRouter([
 	{
-		element: <RootLayout />,
-		errorElement: withSuspense(<NotFoundPage />),
+		element: createElement(rootOutlet),
+		errorElement: withSuspense(createElement(notFoundPage)),
 		children: [
 			{
 				element: <GuestRoute />,
 				children: [
 					{
 						path: ROUTES.LOGIN,
-						element: withSuspense(<LoginPage />),
+						element: withSuspense(createElement(loginPage)),
 					},
 				],
 			},
@@ -40,15 +40,15 @@ export const router = createBrowserRouter([
 						children: [
 							{
 								index: true,
-								element: withSuspense(<WelcomePage />),
+								element: withSuspense(createElement(welcomePage)),
 							},
 							{
 								path: ROUTES.GARAGES,
-								element: withSuspense(<GaragesPage />),
+								element: withSuspense(createElement(garagesPage)),
 							},
 							{
 								path: ROUTES.MENSALISTAS,
-								element: withSuspense(<MensalistasPage />),
+								element: withSuspense(createElement(mensalistasPage)),
 							},
 						],
 					},
@@ -56,4 +56,4 @@ export const router = createBrowserRouter([
 			},
 		],
 	},
-]);
+])

@@ -1,87 +1,80 @@
-import { useEffect, useMemo, useState } from "react";
-import type { KeyboardEvent, ReactElement } from "react";
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Tooltip as ReactTooltip } from "react-tooltip";
+import { useEffect, useMemo, useState } from "react"
+import type { KeyboardEvent, ReactElement } from "react"
+import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
+import { Tooltip as ReactTooltip } from "react-tooltip"
 
-import { cn } from "@/lib/cn";
-import { useAuth, type AuthUser } from "@/hooks/use-auth";
-import { ROUTES } from "@/config/constants";
-import { PowerIcon } from "@/components/icons/power";
-import { useWindowSize } from "@/hooks/use-window-size";
-import { GaragesIcon } from "@/components/icons/garage";
-import { ChevronIcon } from "@/components/icons/chevron";
-import { EstaparIcon } from "@/components/icons/estapar";
-import { MensalistasIcon } from "@/components/icons/mensalistas";
-import { UserIcon } from "@/components/icons/user";
+import { cn } from "@/lib/cn"
+import { useAuth, type AuthUser } from "@/hooks/use-auth"
+import { ROUTES } from "@/config/constants"
+import { PowerIcon } from "@/components/icons/power"
+import { useWindowSize } from "@/hooks/use-window-size"
+import { GaragesIcon } from "@/components/icons/garage"
+import { ChevronIcon } from "@/components/icons/chevron"
+import { EstaparIcon } from "@/components/icons/estapar"
+import { MensalistasIcon } from "@/components/icons/mensalistas"
+import { UserIcon } from "@/components/icons/user"
 
-const SIDEBAR_COLLAPSE_BREAKPOINT_PX = 1024;
-const SIDEBAR_EXPANDED_STORAGE_KEY = "estapar.sidebar.expanded";
-const SIDEBAR_TOOLTIP_ID = "estapar-sidebar-tooltip";
+const SIDEBAR_COLLAPSE_BREAKPOINT_PX = 1024
+const SIDEBAR_EXPANDED_STORAGE_KEY = "estapar.sidebar.expanded"
+const SIDEBAR_TOOLTIP_ID = "estapar-sidebar-tooltip"
 
 type MenuItem = {
-	key: "garages" | "mensalistas";
-	to: string;
-	label: string;
-	icon: ReactElement;
-};
+	key: "garages" | "mensalistas"
+	to: string
+	label: string
+	icon: ReactElement
+}
 
 type UseSidebarExpansionReturn = {
-	isCollapsedByBreakpoint: boolean;
-	isExpanded: boolean;
-	handleToggle: () => void;
-};
+	isCollapsedByBreakpoint: boolean
+	isExpanded: boolean
+	handleToggle: () => void
+}
 
 const getStoredSidebarExpanded = (): boolean => {
 	if (typeof window === "undefined") {
-		return false;
+		return false
 	}
 
-	const raw = window.localStorage.getItem(SIDEBAR_EXPANDED_STORAGE_KEY);
-	return raw === "true";
-};
+	const raw = window.localStorage.getItem(SIDEBAR_EXPANDED_STORAGE_KEY)
+	return raw === "true"
+}
 
 const setStoredSidebarExpanded = (isExpanded: boolean): void => {
 	if (typeof window === "undefined") {
-		return;
+		return
 	}
 
-	window.localStorage.setItem(SIDEBAR_EXPANDED_STORAGE_KEY, String(isExpanded));
-};
+	window.localStorage.setItem(SIDEBAR_EXPANDED_STORAGE_KEY, String(isExpanded))
+}
 
 const useSidebarExpansion = (): UseSidebarExpansionReturn => {
-	const { width } = useWindowSize();
+	const { width } = useWindowSize()
 	const isCollapsedByBreakpoint =
-		(width ?? Number.POSITIVE_INFINITY) < SIDEBAR_COLLAPSE_BREAKPOINT_PX;
-	const [isExpanded, setIsExpanded] = useState(getStoredSidebarExpanded());
+		(width ?? Number.POSITIVE_INFINITY) < SIDEBAR_COLLAPSE_BREAKPOINT_PX
+	const [userWantsExpanded, setUserWantsExpanded] = useState(getStoredSidebarExpanded())
+	const isExpanded = !isCollapsedByBreakpoint && userWantsExpanded
 
 	useEffect(() => {
-		if (!isCollapsedByBreakpoint) {
-			return;
-		}
-
-		setIsExpanded(false);
-	}, [isCollapsedByBreakpoint]);
-
-	useEffect(() => {
-		setStoredSidebarExpanded(isExpanded);
-	}, [isExpanded]);
+		setStoredSidebarExpanded(isExpanded)
+	}, [isExpanded])
 
 	const handleToggle = (): void => {
 		if (isCollapsedByBreakpoint) {
-			return;
+			return
 		}
 
-		setIsExpanded((prev) => !prev);
-	};
+		setUserWantsExpanded((prev) => !prev)
+	}
 
-	return { isCollapsedByBreakpoint, isExpanded, handleToggle };
-};
+	return { isCollapsedByBreakpoint, isExpanded, handleToggle }
+}
 
 type SidebarToggleButtonProps = {
-	isVisible: boolean;
-	isExpanded: boolean;
-	onToggle: () => void;
-};
+	isVisible: boolean
+	isExpanded: boolean
+	onToggle: () => void
+}
 
 const SidebarToggleButton = ({
 	isVisible,
@@ -89,17 +82,17 @@ const SidebarToggleButton = ({
 	onToggle,
 }: SidebarToggleButtonProps): ReactElement => {
 	if (!isVisible) {
-		return <></>;
+		return <></>
 	}
 
 	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => {
 		if (event.key !== "Enter" && event.key !== " ") {
-			return;
+			return
 		}
 
-		event.preventDefault();
-		onToggle();
-	};
+		event.preventDefault()
+		onToggle()
+	}
 
 	return (
 		<button
@@ -115,17 +108,17 @@ const SidebarToggleButton = ({
 		>
 			<ChevronIcon />
 		</button>
-	);
-};
+	)
+}
 
 type SidebarNavItemProps = {
-	to: string;
-	label: string;
-	isActive: boolean;
-	icon: ReactElement;
-	isExpanded: boolean;
-	tooltipId: string;
-};
+	to: string
+	label: string
+	isActive: boolean
+	icon: ReactElement
+	isExpanded: boolean
+	tooltipId: string
+}
 
 const SidebarNavItem = ({
 	to,
@@ -170,16 +163,16 @@ const SidebarNavItem = ({
 				</span>
 			</div>
 		</Link>
-	);
-};
+	)
+}
 
 type SidebarProps = {
-	pathname: string;
-	isExpanded: boolean;
-	onToggle: () => void;
-	menuItems: MenuItem[];
-	isCollapsedByBreakpoint: boolean;
-};
+	pathname: string
+	isExpanded: boolean
+	onToggle: () => void
+	menuItems: MenuItem[]
+	isCollapsedByBreakpoint: boolean
+}
 
 const Sidebar = ({
 	onToggle,
@@ -188,21 +181,21 @@ const Sidebar = ({
 	isExpanded,
 	isCollapsedByBreakpoint,
 }: SidebarProps): ReactElement => {
-	const navigate = useNavigate();
-	const isExpandedEffective = !isCollapsedByBreakpoint && isExpanded;
+	const navigate = useNavigate()
+	const isExpandedEffective = !isCollapsedByBreakpoint && isExpanded
 
 	const handleLogoClick = (): void => {
-		navigate(ROUTES.HOME);
-	};
+		navigate(ROUTES.HOME)
+	}
 
 	const handleLogoKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => {
 		if (event.key !== "Enter" && event.key !== " ") {
-			return;
+			return
 		}
 
-		event.preventDefault();
-		handleLogoClick();
-	};
+		event.preventDefault()
+		handleLogoClick()
+	}
 
 	return (
 		<aside
@@ -229,11 +222,7 @@ const Sidebar = ({
 					])}
 				>
 					{isExpandedEffective ? (
-						<img
-							alt="Estapar"
-							className="h-8"
-							src="/src/assets/estapar-logo.png"
-						/>
+						<img alt="Estapar" className="h-8" src="/src/assets/estapar-logo.png" />
 					) : (
 						<EstaparIcon />
 					)}
@@ -249,9 +238,7 @@ const Sidebar = ({
 			<nav>
 				{menuItems.map((item) => {
 					const isActive =
-						item.key === "garages"
-							? pathname === ROUTES.GARAGES
-							: pathname === ROUTES.MENSALISTAS;
+						item.key === "garages" ? pathname === ROUTES.GARAGES : pathname === ROUTES.MENSALISTAS
 
 					return (
 						<SidebarNavItem
@@ -263,24 +250,24 @@ const Sidebar = ({
 							tooltipId={SIDEBAR_TOOLTIP_ID}
 							isExpanded={isExpandedEffective}
 						/>
-					);
+					)
 				})}
 			</nav>
 		</aside>
-	);
-};
+	)
+}
 
 type LogoutButtonProps = {
-	onLogout: () => void;
-};
+	onLogout: () => void
+}
 
 const LogoutButton = ({ onLogout }: LogoutButtonProps): ReactElement => {
 	const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => {
 		if (event.key === "Enter" || event.key === " ") {
-			event.preventDefault();
-			onLogout();
+			event.preventDefault()
+			onLogout()
 		}
-	};
+	}
 
 	return (
 		<button
@@ -294,29 +281,26 @@ const LogoutButton = ({ onLogout }: LogoutButtonProps): ReactElement => {
 			<PowerIcon className="h-4 w-4" />
 			<span>Sair</span>
 		</button>
-	);
-};
+	)
+}
 
 type UserInfoProps = {
-	user: AuthUser | null;
-};
+	user: AuthUser | null
+}
 
 const UserInfo = ({ user }: UserInfoProps): ReactElement => {
 	return (
 		<div className="flex items-center gap-1">
 			<UserIcon className="h-4 w-4 text-estapar-caption" aria-hidden />
-			<span className="text-sm font-medium text-estapar-caption">
-				{user?.name ?? "Usuário"}
-			</span>
+			<span className="text-sm font-medium text-estapar-caption">{user?.name ?? "Usuário"}</span>
 		</div>
-	);
-};
+	)
+}
 
 const AuthenticatedLayout = (): ReactElement => {
-	const { user, logout } = useAuth();
-	const { pathname } = useLocation();
-	const { isCollapsedByBreakpoint, isExpanded, handleToggle } =
-		useSidebarExpansion();
+	const { user, logout } = useAuth()
+	const { pathname } = useLocation()
+	const { isCollapsedByBreakpoint, isExpanded, handleToggle } = useSidebarExpansion()
 
 	const menuItems = useMemo<MenuItem[]>(
 		() => [
@@ -330,11 +314,11 @@ const AuthenticatedLayout = (): ReactElement => {
 				key: "mensalistas",
 				to: ROUTES.MENSALISTAS,
 				label: "Mensalistas",
-				icon: <MensalistasIcon className="h-4 w-4"  />,
+				icon: <MensalistasIcon className="h-4 w-4" />,
 			},
 		],
 		[],
-	);
+	)
 
 	return (
 		<div className="flex min-h-screen bg-estapar-canvas">
@@ -360,7 +344,7 @@ const AuthenticatedLayout = (): ReactElement => {
 				</main>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default AuthenticatedLayout;
+export default AuthenticatedLayout

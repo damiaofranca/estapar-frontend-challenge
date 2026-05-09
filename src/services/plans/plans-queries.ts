@@ -4,16 +4,11 @@ import {
 	type UseMutationOptions,
 	type UseQueryResult,
 	type UseMutationResult,
-} from "@tanstack/react-query";
+} from "@tanstack/react-query"
 
-import { plansApi } from "./plans-service";
-import { queryClient } from "@/lib/queryClient";
-import type {
-	CreatePlanPayload,
-	GetPlansParams,
-	Plan,
-	UpdatePlanPayload,
-} from "./plans-types";
+import { plansApi } from "./plans-service"
+import { queryClient } from "@/lib/queryClient"
+import type { CreatePlanPayload, GetPlansParams, Plan, UpdatePlanPayload } from "./plans-types"
 
 export type CreatePlanMutationOptions = Omit<
 	UseMutationOptions<void, Error, CreatePlanPayload>,
@@ -58,9 +53,7 @@ const useUpdatePlanMutation = (
 	})
 }
 
-const useGetPlansQuery = (
-	params?: GetPlansParams,
-): UseQueryResult<Plan[], Error> =>
+const useGetPlansQuery = (params?: GetPlansParams): UseQueryResult<Plan[], Error> =>
 	useQuery<Plan[], Error>({
 		queryKey: ["plans", params?.garageId ?? null],
 		queryFn: () => plansApi.getPlans(params),
@@ -74,4 +67,4 @@ export const plansService = {
 	getPlans: plansApi.getPlans,
 	createPlan: plansApi.createPlan,
 	updatePlan: plansApi.updatePlan,
-};
+}

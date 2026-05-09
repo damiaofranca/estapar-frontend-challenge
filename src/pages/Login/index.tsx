@@ -1,14 +1,13 @@
-import { type ReactElement } from "react";
+import { type ReactElement } from "react"
 
-import { Button, Input } from "@/components/ui";
-import { LockIcon } from "@/components/icons/lock";
-import { UserIcon } from "@/components/icons/user";
+import { Button, Input } from "@/components/ui"
+import { LockIcon } from "@/components/icons/lock"
+import { UserIcon } from "@/components/icons/user"
 
-import { useLoginForm } from "./use-login-form";
+import { useLoginForm } from "./use-login-form"
 
 const LoginPage = (): ReactElement => {
-	const { handleSubmit, onSubmit, register, errors, isPending } =
-		useLoginForm();
+	const { handleSubmit, onSubmit, register, errors, isPending } = useLoginForm()
 
 	return (
 		<div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-estapar-canvas px-4 py-10">
@@ -50,19 +49,13 @@ const LoginPage = (): ReactElement => {
 						error={errors.password?.message}
 						{...register("password")}
 					/>
-					<Button
-						size="lg"
-						type="submit"
-						variant="primary"
-						className="w-full"
-						loading={isPending}
-					>
+					<Button size="lg" type="submit" variant="primary" className="w-full" loading={isPending}>
 						Entrar
 					</Button>
 				</form>
 			</div>
 		</div>
-	);
-};
+	)
+}
 
-export default LoginPage;
+export default LoginPage

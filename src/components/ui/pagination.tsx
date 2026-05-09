@@ -1,10 +1,10 @@
-import type { ReactElement } from "react";
+import type { ReactElement } from "react"
 
-import { ChevronLeftSmallIcon } from "@/components/icons/chevron-left-small";
-import { ChevronRightSmallIcon } from "@/components/icons/chevron-right-small";
-import { cn } from "@/lib/cn";
+import { ChevronLeftSmallIcon } from "@/components/icons/chevron-left-small"
+import { ChevronRightSmallIcon } from "@/components/icons/chevron-right-small"
+import { cn } from "@/lib/cn"
 
-const PAGINATION_ELLIPSIS = "ellipsis";
+const PAGINATION_ELLIPSIS = "ellipsis"
 
 type PaginationItem = number | typeof PAGINATION_ELLIPSIS
 
@@ -46,11 +46,7 @@ const getPaginationItems = (
 
 	if (showLeftEllipsis && !showRightEllipsis) {
 		const rightItemCount = 3 + 2 * siblingCount
-		return [
-			1,
-			PAGINATION_ELLIPSIS,
-			...range(pageCount - rightItemCount + 1, pageCount),
-		]
+		return [1, PAGINATION_ELLIPSIS, ...range(pageCount - rightItemCount + 1, pageCount)]
 	}
 
 	return [
@@ -140,10 +136,7 @@ export const Pagination = ({
 								aria-label={`Ir para a página ${item}`}
 								aria-current={isActive ? "page" : undefined}
 								onClick={() => handleGoTo(item)}
-								className={cn(
-									buttonBaseClassName,
-									isActive ? buttonActiveClassName : undefined,
-								)}
+								className={cn(buttonBaseClassName, isActive ? buttonActiveClassName : undefined)}
 							>
 								{item}
 							</button>

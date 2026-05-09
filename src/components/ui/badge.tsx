@@ -18,13 +18,6 @@ export type BadgeProps = ComponentPropsWithoutRef<"span"> & {
 	variant?: BadgeVariant
 }
 
-export const Badge = ({
-	className,
-	variant = "neutral",
-	...rest
-}: BadgeProps): ReactElement => (
-	<span
-		className={cn(badgeBaseClassName, badgeVariantClassName[variant], className)}
-		{...rest}
-	/>
+export const Badge = ({ className, variant = "neutral", ...rest }: BadgeProps): ReactElement => (
+	<span className={cn(badgeBaseClassName, badgeVariantClassName[variant], className)} {...rest} />
 )

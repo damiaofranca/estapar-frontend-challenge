@@ -21,10 +21,7 @@ const isRenderableAsComponent = (x: unknown): x is ComponentType<QRCodeSvgProps>
 		return false
 	}
 	const $$typeof = (x as { $$typeof?: symbol }).$$typeof
-	return (
-		$$typeof === Symbol.for("react.forward_ref") ||
-		$$typeof === Symbol.for("react.memo")
-	)
+	return $$typeof === Symbol.for("react.forward_ref") || $$typeof === Symbol.for("react.memo")
 }
 
 const resolveQrCodeComponent = (): ComponentType<QRCodeSvgProps> => {
@@ -69,12 +66,7 @@ export const QrCode = ({
 	bgColor = "#FFFFFF",
 	fgColor = "#000000",
 }: QrCodeProps): ReactElement => (
-	<div
-		className={cn(
-			"bg-estapar-surface",
-			className,
-		)}
-	>
+	<div className={cn("bg-estapar-surface", className)}>
 		<QRCodeSvg
 			value={value}
 			level={level}

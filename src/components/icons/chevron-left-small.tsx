@@ -14,4 +14,3 @@ export const ChevronLeftSmallIcon = (props: SVGProps<SVGSVGElement>) => (
 		<path d="M10 12 6 8l4-4" />
 	</svg>
 )
-

@@ -19,4 +19,3 @@ export const SearchIcon = (props: SVGProps<SVGSVGElement>) => (
 		/>
 	</svg>
 )
-

@@ -13,13 +13,11 @@ const toFiniteNumber = (input: number | string | null | undefined): number => {
 	return Number.isFinite(value) ? value : 0
 }
 
-export const formatCentsToBRL = (
-	cents: number | string | null | undefined,
-): string => brlCurrencyFormatter.format(toFiniteNumber(cents) / 100)
+export const formatCentsToBRL = (cents: number | string | null | undefined): string =>
+	brlCurrencyFormatter.format(toFiniteNumber(cents) / 100)
 
-export const formatInteger = (
-	value: number | string | null | undefined,
-): string => integerFormatter.format(Math.trunc(toFiniteNumber(value)))
+export const formatInteger = (value: number | string | null | undefined): string =>
+	integerFormatter.format(Math.trunc(toFiniteNumber(value)))
 
 const truthyStringValues = new Set(["1", "true", "ativo", "active", "yes", "sim"])
 

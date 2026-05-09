@@ -26,4 +26,3 @@ export const EyeIcon = (props: SVGProps<SVGSVGElement>) => (
 		/>
 	</svg>
 )
-

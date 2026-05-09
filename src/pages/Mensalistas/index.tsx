@@ -14,4 +14,3 @@ const MensalistasPage = (): ReactElement => (
 )
 
 export default MensalistasPage
-

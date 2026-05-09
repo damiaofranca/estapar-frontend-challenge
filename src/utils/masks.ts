@@ -33,9 +33,7 @@ export const moneyMaskToCents = (formatted: string): number => {
 	return Number.isFinite(cents) ? cents : 0
 }
 
-export const formatCentsToMoneyMask = (
-	cents: number | string | null | undefined,
-): string => {
+export const formatCentsToMoneyMask = (cents: number | string | null | undefined): string => {
 	if (cents == null || cents === "") {
 		return moneyMask.format("0")
 	}
@@ -65,10 +63,7 @@ const applyDigitMask = (digits: string, pattern: string): string => {
 	return result
 }
 
-const buildPatternMask = (
-	patterns: string[],
-	maxDigits: number,
-): InputMask => ({
+const buildPatternMask = (patterns: string[], maxDigits: number): InputMask => ({
 	format: (rawValue) => {
 		const digits = onlyDigits(rawValue).slice(0, maxDigits)
 		if (!digits) {
@@ -81,16 +76,11 @@ const buildPatternMask = (
 	},
 })
 
-
 export const cepMask: InputMask = buildPatternMask(["#####-###"], 8)
 
 export const cpfMask: InputMask = buildPatternMask(["###.###.###-##"], 11)
 
-export const cnpjMask: InputMask = buildPatternMask(
-	["##.###.###/####-##"],
-	14,
-)
-
+export const cnpjMask: InputMask = buildPatternMask(["##.###.###/####-##"], 14)
 
 export const Mask = {
 	cepMask,
