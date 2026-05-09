@@ -3,6 +3,7 @@ import { useMemo, useState, type ReactElement } from "react"
 import { Drawer } from "@/components/ui/drawer"
 import { QrCode } from "@/components/ui/qr-code"
 import { Tabs, type TabItem } from "@/components/ui/tabs"
+import { Typography } from "@/components/ui"
 import { QUERY_PARAMS, ROUTES } from "@/config/constants"
 
 import { garagesService } from "@/services"
@@ -32,8 +33,12 @@ const drawerTabs: TabItem<GarageDetailsTab>[] = [{ value: "digital", label: "Men
 
 const SectionPlaceholder = ({ title }: { title: string }): ReactElement => (
   <section className="flex min-w-0 flex-1 flex-col items-center justify-center rounded-r-lg border border-l-0 border-estapar-border-light bg-estapar-canvas px-6 py-12 text-center">
-    <h3 className="text-base font-semibold text-estapar-medium-gray">{title}</h3>
-    <p className="mt-2 max-w-md text-sm text-estapar-muted">Esta seção estará disponível em breve.</p>
+    <Typography as="h3" className="text-base font-semibold text-estapar-medium-gray">
+      {title}
+    </Typography>
+    <Typography as="p" className="mt-2 max-w-md text-sm text-estapar-muted">
+      Esta seção estará disponível em breve.
+    </Typography>
   </section>
 )
 
@@ -59,14 +64,21 @@ export const GarageDetailsDrawer = ({ open, garageId, onClose }: GarageDetailsDr
 
     if (garageId == null) {
       return (
-        <p className="rounded-lg border border-estapar-border-light bg-estapar-surface p-6 text-sm text-estapar-muted">
+        <Typography
+          as="p"
+          className="rounded-lg border border-estapar-border-light bg-estapar-surface p-6 text-sm text-estapar-muted"
+        >
           Nenhuma garagem selecionada.
-        </p>
+        </Typography>
       )
     }
 
     if (isGarageLoading) {
-      return <p className="p-6 text-center text-sm text-estapar-muted">Carregando detalhes da garagem...</p>
+      return (
+        <Typography as="p" className="p-6 text-center text-sm text-estapar-muted">
+          Carregando detalhes da garagem...
+        </Typography>
+      )
     }
 
     if (!garage) {

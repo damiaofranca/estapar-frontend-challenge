@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactElement } from "react"
 
 import { cn } from "@/lib/cn"
-import { Badge } from "@/components/ui"
+import { Badge, Typography } from "@/components/ui"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { EditIcon } from "@/components/icons/edit"
@@ -62,14 +62,14 @@ export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): React
       key: "description",
       header: "Descrição",
       cell: (row) => (
-        <span className="flex items-center gap-2 text-estapar-body">
+        <Typography as="span" className="flex items-center gap-2 text-estapar-body">
           {row.VeichleType === VehicleType.MOTORCYCLE ? (
             <MotocycleIcon className="h-4 w-4 shrink-0 text-estapar-muted" />
           ) : (
             <MensalistasIcon className="h-4 w-4 shrink-0 text-estapar-muted" />
           )}
           {row.description}
-        </span>
+        </Typography>
       ),
     },
     {
@@ -128,7 +128,9 @@ export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): React
   return (
     <section className="flex min-w-0 flex-1 flex-col gap-4 border-t border-estapar-border-light px-4 pt-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h3 className="text-base font-semibold text-estapar-dark-blue">Planos Disponíveis</h3>
+        <Typography as="h3" className="text-base font-semibold text-estapar-dark-blue">
+          Planos Disponíveis
+        </Typography>
         <Button
           size="sm"
           variant="outline"

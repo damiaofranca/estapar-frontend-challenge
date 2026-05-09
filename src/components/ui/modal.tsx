@@ -4,6 +4,8 @@ import { createPortal } from "react-dom"
 import { cn } from "@/lib/cn"
 import { XIcon } from "@/components/icons/x"
 
+import { Typography } from "./typography"
+
 export type ModalSize = "sm" | "md" | "lg"
 
 const modalSizeClassName: Record<ModalSize, string> = {
@@ -101,8 +103,16 @@ export const Modal = ({
         {(title != null || description != null || showCloseButton) && (
           <div className="flex items-start justify-between gap-4 px-6 pt-6">
             <div className="flex flex-col gap-1">
-              {title != null ? <h2 className="text-lg font-semibold text-estapar-dark-blue">{title}</h2> : null}
-              {description != null ? <p className="text-sm text-estapar-caption">{description}</p> : null}
+              {title != null ? (
+                <Typography as="h2" className="text-lg font-semibold text-estapar-dark-blue">
+                  {title}
+                </Typography>
+              ) : null}
+              {description != null ? (
+                <Typography as="p" className="text-sm text-estapar-caption">
+                  {description}
+                </Typography>
+              ) : null}
             </div>
             {showCloseButton ? (
               <button

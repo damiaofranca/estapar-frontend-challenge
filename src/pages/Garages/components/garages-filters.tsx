@@ -3,6 +3,7 @@ import type { ReactElement } from "react"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { SearchIcon } from "@/components/icons/search"
+import { Typography } from "@/components/ui"
 
 type GaragesFiltersProps = {
   garageName: string
@@ -24,10 +25,12 @@ export const GaragesFilters = ({
       <Switch label="Mensalista Digital" checked={mensalistaDigital} onCheckedChange={onMensalistaDigitalChange} />
 
       <div className="flex min-w-0 flex-1 flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center lg:justify-end lg:gap-4">
-        <p className="shrink-0 text-sm text-estapar-muted">
-          <span className="font-medium text-estapar-body">{totalCount}</span>
+        <Typography as="p" className="shrink-0 text-sm text-estapar-muted">
+          <Typography as="span" className="font-medium text-estapar-body">
+            {totalCount}
+          </Typography>
           {" registros"}
-        </p>
+        </Typography>
         <Input
           value={garageName}
           aria-label="Buscar por nome"

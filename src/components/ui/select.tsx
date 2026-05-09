@@ -3,6 +3,7 @@ import { forwardRef, useId, type ComponentPropsWithoutRef, type ReactNode } from
 import { cn } from "@/lib/cn"
 
 import { Label, type LabelProps } from "./label"
+import { Typography } from "./typography"
 
 export const selectRootClassName =
   "peer flex h-10 w-full min-w-0 cursor-pointer appearance-none rounded-md border border-estapar-border-input bg-estapar-surface px-3 py-2 pr-10 text-sm leading-none text-estapar-body shadow-sm outline-none transition-[color,box-shadow] focus-visible:border-estapar-primary focus-visible:ring-[3px] focus-visible:ring-estapar-ring/35 disabled:cursor-not-allowed disabled:opacity-50"
@@ -121,15 +122,15 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {selectEl}
 
         {error != null && error !== false ? (
-          <p id={errorId} role="alert" className="text-sm font-medium text-estapar-error">
+          <Typography as="p" id={errorId} role="alert" className="text-sm font-medium text-estapar-error">
             {error}
-          </p>
+          </Typography>
         ) : null}
 
         {hint != null ? (
-          <p id={hintId} className="text-sm text-estapar-muted">
+          <Typography as="p" id={hintId} className="text-sm text-estapar-muted">
             {hint}
-          </p>
+          </Typography>
         ) : null}
       </div>
     )

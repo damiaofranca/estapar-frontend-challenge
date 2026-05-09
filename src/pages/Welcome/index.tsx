@@ -6,6 +6,7 @@ import { ROUTES } from "@/config/constants"
 import { GaragesIcon } from "@/components/icons/garage"
 import { MensalistasIcon } from "@/components/icons/mensalistas"
 import { ChevronRightIcon } from "@/components/icons/chevron-right"
+import { Typography } from "@/components/ui"
 
 type WelcomeCardConfig = {
   to: string
@@ -51,8 +52,12 @@ const WelcomeCard = ({ to, title, description, Icon }: WelcomeCardProps): ReactE
       </div>
 
       <div className="flex flex-col gap-1">
-        <h2 className="text-sm font-semibold text-estapar-dark-blue">{title}</h2>
-        <p className="text-xs leading-relaxed text-estapar-dark-gray">{description}</p>
+        <Typography as="h2" className="text-sm font-semibold text-estapar-dark-blue">
+          {title}
+        </Typography>
+        <Typography as="p" className="text-xs leading-relaxed text-estapar-dark-gray">
+          {description}
+        </Typography>
       </div>
     </div>
   </Link>
@@ -61,13 +66,13 @@ const WelcomeCard = ({ to, title, description, Icon }: WelcomeCardProps): ReactE
 const WelcomePage = (): ReactElement => (
   <div className="w-full max-w-5xl">
     <header className="flex flex-col gap-3">
-      <h1 className="text-2xl font-semibold tracking-tight text-estapar-medium-gray">
+      <Typography as="h1" className="text-2xl font-semibold tracking-tight text-estapar-medium-gray">
         Bem-vindo ao Portal Estapar B2B
-      </h1>
-      <p className="max-w-2xl text-sm leading-relaxed text-estapar-dark-gray">
+      </Typography>
+      <Typography as="p" className="max-w-2xl text-sm leading-relaxed text-estapar-dark-gray">
         Gerencie seus serviços de estacionamento, acesse relatórios, configure credenciais e contrate planos de
         mensalidade em um só lugar.
-      </p>
+      </Typography>
     </header>
 
     <section className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">

@@ -1,6 +1,6 @@
 import { type ReactElement } from "react"
 
-import { Button, Input } from "@/components/ui"
+import { Button, Input, Typography } from "@/components/ui"
 import { LockIcon } from "@/components/icons/lock"
 import { UserIcon } from "@/components/icons/user"
 import logo from "@/assets/estapar-logo.png"
@@ -15,9 +15,9 @@ const LoginPage = (): ReactElement => {
       <img src={logo} alt="Estapar" className="h-8" />
 
       <div className="w-full max-w-md rounded-lg border border-estapar-border bg-estapar-surface p-6 shadow-sm shadow-estapar-border-light/80">
-        <h1 className="text-base font-semibold leading-snug text-estapar-title">
+        <Typography as="h1" className="text-base font-semibold leading-snug text-estapar-title">
           Entre com suas credenciais para acessar o sistema
-        </h1>
+        </Typography>
 
         <form
           noValidate
