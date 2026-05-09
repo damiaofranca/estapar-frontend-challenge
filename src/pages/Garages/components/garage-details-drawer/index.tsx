@@ -147,9 +147,7 @@ export const GarageDetailsDrawer = ({
     <Drawer
       open={open}
       onClose={onClose}
-      headerSlot={
-        <GarageDetailTitle garage={garage} isTitleLoading={isTitleLoading} />
-      }
+      headerSlot={<GarageDetailTitle garage={garage} isTitleLoading={isTitleLoading} />}
     >
       {renderBody()}
     </Drawer>

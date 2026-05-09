@@ -134,7 +134,7 @@ export const GaragePlansSection = ({
 
 			{isPlansLoading ? (
 				<div className="flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-lg border border-estapar-border-light bg-estapar-surface py-10">
-					<Spinner size="md" className="text-estapar-primary" />
+					<Spinner size="sm" />
 				</div>
 			) : (
 				<Table
