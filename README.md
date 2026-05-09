@@ -8,8 +8,12 @@ Teste técnico de front-end para o portal B2B de gestão de garagens, vagas e pl
 - **API (documentação)**  
   https://c6wu4yjlku.apidog.io
 
+- **Repositório do desafio**  
+  https://github.com/estapar/frontend-challenge
+
 - **Credenciais de exemplo (mock)**  
   usuário `estapar` · senha `@estapar@`
+
 
 Configure a URL base da API em variável de ambiente **`VITE_API_URL`** (ex.: mock Apidog), conforme o ambiente onde o projeto será executado.
 
