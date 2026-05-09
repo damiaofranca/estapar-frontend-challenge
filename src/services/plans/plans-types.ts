@@ -1,7 +1,7 @@
 export const VehicleType = {
   CAR: 1,
   MOTORCYCLE: 2,
-} as const
+}
 
 export type VehicleTypeValue = (typeof VehicleType)[keyof typeof VehicleType]
 

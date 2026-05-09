@@ -4,10 +4,11 @@ import { toast } from "react-toastify"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, useWatch, type SubmitHandler } from "react-hook-form"
 
+import { plansService } from "@/services"
 import { isActiveFlag } from "@/lib/format"
+import { queryClient } from "@/lib/queryClient"
 import type { SelectOption } from "@/components/ui"
 import { Mask, addDaysIso, todayIsoDate, toIsoDate } from "@/utils"
-import { useCreatePlanMutation, useUpdatePlanMutation } from "@/hooks"
 import { type Plan, VehicleType, type UpdatePlanPayload, type CreatePlanPayload } from "@/services/plans/plans-types"
 
 export const vehicleTypeOptions: SelectOption[] = [
@@ -124,18 +125,21 @@ type UsePlanFormParams = {
 export const usePlanForm = ({ plan, open, garageId, onSuccess }: UsePlanFormParams) => {
   const isEditMode = plan != null
 
-  const { mutateAsync: createPlan, isPending: isCreating } = useCreatePlanMutation({
+  const { mutateAsync: createPlan, isPending: isCreating } = plansService.useCreatePlanMutation({
     onSuccess: () => {
       toast.success("Plano criado com sucesso")
+      queryClient.invalidateQueries({ queryKey: ["plans"] })
       onSuccess?.()
       reset(buildPlanFormDefaults(plan))
     },
   })
 
-  const { mutateAsync: updatePlan, isPending: isUpdating } = useUpdatePlanMutation({
+  const { mutateAsync: updatePlan, isPending: isUpdating } = plansService.useUpdatePlanMutation({
     onSuccess: () => {
       toast.success("Plano atualizado com sucesso")
+      queryClient.invalidateQueries({ queryKey: ["plans"] })
       onSuccess?.()
+      reset(buildPlanFormDefaults(plan))
     },
   })
 

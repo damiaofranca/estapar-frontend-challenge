@@ -1,8 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { useForm } from "react-hook-form"
 
-import { useLogin } from "@/hooks/use-login"
+import { ROUTES } from "@/config/constants"
+import { setAuthToken } from "@/store/auth-store"
+import { authenticationService } from "@/services"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export const loginFormSchema = z.object({
   username: z.string().min(1, "Informe o usuário"),
@@ -12,7 +14,12 @@ export const loginFormSchema = z.object({
 export type LoginFormValues = z.infer<typeof loginFormSchema>
 
 export const useLoginForm = () => {
-  const { mutateAsync, isPending } = useLogin()
+  const { mutateAsync, isPending } = authenticationService.useLogin({
+    onSuccess: (response) => {
+      setAuthToken(response.data.token)
+      window.location.href = ROUTES.HOME
+    },
+  })
 
   const {
     register,

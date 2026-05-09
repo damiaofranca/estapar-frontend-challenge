@@ -1,9 +1,10 @@
 import { useCallback, useMemo, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
-import { PAGINATION_DEFAULTS, QUERY_PARAMS } from "@/config/constants"
+import { useDebounce } from "@/hooks"
+import { garagesService } from "@/services"
 import type { GarageItem } from "@/services/garages/garages-types"
-import { useDebounce, useGetGaragesQuery } from "@/hooks"
+import { PAGINATION_DEFAULTS, QUERY_PARAMS } from "@/config/constants"
 
 export type GaragesRow = GarageItem & {
   cityUf: string
@@ -32,7 +33,7 @@ export const useGaragesPage = () => {
     [pageIndex, debouncedGarageName],
   )
 
-  const garagesQuery = useGetGaragesQuery(filters, { enabled: mensalistaDigital })
+  const garagesQuery = garagesService.useGetGaragesQuery(filters, { enabled: mensalistaDigital })
 
   const totalCount = mensalistaDigital ? (garagesQuery.data?.countRecords ?? 0) : 0
 
