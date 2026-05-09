@@ -23,8 +23,8 @@ type InputOwnProps = {
 	labelProps?: Omit<LabelProps, "htmlFor" | "children">;
 	error?: ReactNode;
 	hint?: ReactNode;
-	startIcon?: ReactNode;
-	endIcon?: ReactNode;
+	icon?: ReactNode;
+	sideIcon?: "left" | "right";
 	rootClassName?: string;
 };
 
@@ -35,23 +35,22 @@ const isComposedInput = (props: InputOwnProps): boolean =>
 		props.label != null ||
 		props.error != null ||
 		props.hint != null ||
-		props.startIcon != null ||
-		props.endIcon != null,
+		props.icon != null,
 	);
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
 	(
 		{
 			hint,
+			icon,
 			error,
 			label,
-			endIcon,
-			startIcon,
 			className,
 			labelProps,
 			id: idProp,
 			rootClassName,
 			type = "text",
+			sideIcon = "left",
 			"aria-invalid": ariaInvalidProp,
 			"aria-describedby": ariaDescribedByProp,
 			...rest
@@ -61,7 +60,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 		const reactId = useId();
 		const inputId =
 			idProp ??
-			(isComposedInput({ label, error, hint, startIcon, endIcon })
+			(isComposedInput({ label, error, hint, icon, sideIcon })
 				? reactId
 				: undefined);
 		const errorId = `${reactId}-error`;
@@ -71,8 +70,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 			label,
 			error,
 			hint,
-			startIcon,
-			endIcon,
+			icon,
+			sideIcon,
 		});
 
 		const describedByParts = [
@@ -88,8 +87,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
 		const inputClassName = cn(
 			inputRootClassName,
-			Boolean(startIcon) ? "pl-10" : undefined,
-			Boolean(endIcon) ? "pr-10" : undefined,
+			Boolean(icon) && sideIcon === "left" ? "pl-10" : undefined,
+			Boolean(icon) && sideIcon === "right" ? "pr-10" : undefined,
 			className,
 		);
 
@@ -121,14 +120,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 				) : null}
 
 				<div className="relative shrink-0">
-					{startIcon ? (
-						<span className={cn(iconSlotClassName, "left-3")} aria-hidden>
-							{startIcon}
-						</span>
-					) : null}
-					{endIcon ? (
-						<span className={cn(iconSlotClassName, "right-3")} aria-hidden>
-							{endIcon}
+					{icon ? (
+						<span
+							className={cn(
+								iconSlotClassName,
+								sideIcon === "right" ? "right-3" : "left-3",
+							)}
+							aria-hidden
+						>
+							{icon}
 						</span>
 					) : null}
 					{inputEl}

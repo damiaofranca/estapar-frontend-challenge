@@ -31,9 +31,9 @@ const LoginPage = (): ReactElement => {
 						inputMode="text"
 						spellCheck={false}
 						id="login-username"
+						icon={<UserIcon />}
 						disabled={isPending}
 						autoComplete="username"
-						startIcon={<UserIcon />}
 						error={errors.username?.message}
 						placeholder="Digite seu usuário"
 						labelProps={{ className: "text-estapar-label" }}
@@ -43,8 +43,8 @@ const LoginPage = (): ReactElement => {
 						label="Senha"
 						type="password"
 						id="login-password"
+						icon={<LockIcon />}
 						disabled={isPending}
-						startIcon={<LockIcon />}
 						placeholder="Digite sua senha"
 						autoComplete="current-password"
 						error={errors.password?.message}

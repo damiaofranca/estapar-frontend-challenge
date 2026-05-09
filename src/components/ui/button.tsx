@@ -10,7 +10,7 @@ export type ButtonVariant = "primary" | "secondary" | "outline" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const buttonBaseClassName =
-	"inline-flex items-center justify-center gap-2 font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-estapar-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60";
+	"inline-flex items-center justify-center gap-2 font-semibold transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-estapar-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-60";
 
 const buttonVariantClassName: Record<ButtonVariant, string> = {
 	primary:
@@ -24,7 +24,7 @@ const buttonVariantClassName: Record<ButtonVariant, string> = {
 };
 
 const buttonSizeClassName: Record<ButtonSize, string> = {
-	sm: "h-9 min-h-9 rounded-md px-3 text-xs",
+	sm: "h-8 min-h-8 rounded-md px-3 text-xs",
 	md: "h-10 min-h-10 rounded-md px-4 text-sm",
 	lg: "h-11 min-h-11 rounded-lg px-4 text-sm",
 };

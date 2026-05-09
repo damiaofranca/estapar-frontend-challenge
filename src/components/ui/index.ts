@@ -1,3 +1,8 @@
 export { Button, type ButtonProps, type ButtonSize, type ButtonVariant } from "./button"
 export { Input, inputRootClassName, type InputProps } from "./input"
 export { Label, labelRootClassName } from "./label"
+export { Drawer, type DrawerWidth } from "./drawer"
+export { Badge, type BadgeProps, type BadgeVariant } from "./badge"
+export { Tabs, type TabItem } from "./tabs"
+export { Spinner, type SpinnerProps, type SpinnerSize } from "./spinner"
+export { QrCode, type QrCodeProps } from "./qr-code"
