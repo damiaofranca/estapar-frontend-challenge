@@ -11,10 +11,10 @@ import { queryClient } from "./lib/queryClient.tsx"
 
 import { router } from "./router/index.tsx"
 createRoot(document.getElementById("root")!).render(
-	<StrictMode>
-		<QueryClientProvider client={queryClient}>
-			<RouterProvider router={router} />
-			<ToastContainer />
-		</QueryClientProvider>
-	</StrictMode>,
+  <StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </QueryClientProvider>
+  </StrictMode>,
 )

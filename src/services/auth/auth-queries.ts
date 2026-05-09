@@ -7,15 +7,15 @@ import { setAuthToken } from "@/store/auth-store"
 import type { AuthToken, LoginCredentials } from "./auth-types"
 
 const useLogin = (): UseMutationResult<ApiResponse<AuthToken>, Error, LoginCredentials> =>
-	useMutation<ApiResponse<AuthToken>, Error, LoginCredentials>({
-		mutationFn: authenticationApi.login,
-		onSuccess: (response) => {
-			setAuthToken(response.data.token)
-			window.location.href = ROUTES.HOME
-		},
-	})
+  useMutation<ApiResponse<AuthToken>, Error, LoginCredentials>({
+    mutationFn: authenticationApi.login,
+    onSuccess: (response) => {
+      setAuthToken(response.data.token)
+      window.location.href = ROUTES.HOME
+    },
+  })
 
 export const authenticationService = {
-	login: authenticationApi.login,
-	useLogin,
+  login: authenticationApi.login,
+  useLogin,
 }

@@ -24,7 +24,7 @@ export default defineConfig([
       prettier: eslintPluginPrettier,
     },
     rules: {
-      'prettier/prettier': 'warn',
+    'prettier/prettier': ['error', { printWidth: 120 }],
     },
   },
   eslintConfigPrettier,

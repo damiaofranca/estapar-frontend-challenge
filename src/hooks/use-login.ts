@@ -4,4 +4,4 @@ import { authenticationService, type AuthToken, type LoginCredentials } from "@/
 import type { ApiResponse } from "@/types/api-types"
 
 export const useLogin = (): UseMutationResult<ApiResponse<AuthToken>, Error, LoginCredentials> =>
-	authenticationService.useLogin()
+  authenticationService.useLogin()
