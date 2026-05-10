@@ -11,9 +11,9 @@ import { Table, type TableColumn } from "@/components/ui/table"
 import { MensalistasIcon } from "@/components/icons/mensalistas"
 
 import { plansService } from "@/services"
+import { PlanFormModal } from "../../../PlanFormModal"
 import { VehicleType } from "@/services/plans/plans-types"
 import { MotocycleIcon } from "@/components/icons/motocycle"
-import { PlanFormModal } from "../../../garage-details-drawer/plan-form-modal"
 import { buildPlanRows, formatPlanValue, type PlanRow } from "@/utils/garage-plans-utils"
 
 const editButtonClassName = cn(
@@ -21,39 +21,35 @@ const editButtonClassName = cn(
   "hover:bg-estapar-muted-surface-alt hover:text-estapar-body",
 )
 
-type PlanFormState = { mode: "create" } | { mode: "edit"; planId: number } | null
-
 type GaragePlansSectionProps = {
   garageId: string
+  garageAvailableVacancies: number
 }
 
-export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): ReactElement => {
+export const GaragePlansSection = ({ garageId, garageAvailableVacancies }: GaragePlansSectionProps): ReactElement => {
   const plansQuery = plansService.useGetPlansQuery({ garageId })
 
-  const [formState, setFormState] = useState<PlanFormState>(null)
+  const [isPlanModalOpen, setIsPlanModalOpen] = useState(false)
+  const [editingPlan, setEditingPlan] = useState<PlanRow | null>(null)
 
-  const isPlansLoading = plansQuery.isFetching
+  const isPlansLoading = plansQuery.isPending
 
   const rows = useMemo(() => buildPlanRows(plansQuery.data ?? []), [plansQuery.data])
 
-  const editingPlan = useMemo(() => {
-    if (formState?.mode !== "edit") {
-      return null
-    }
-    return plansQuery.data?.find((plan) => plan.idPlan === formState.planId) ?? null
-  }, [formState, plansQuery.data])
-
-  const handleOpenCreate = (): void => setFormState({ mode: "create" })
-
-  const handleOpenEdit = (planId: string): void => {
-    const numericId = Number(planId)
-    if (!Number.isFinite(numericId)) {
-      return
-    }
-    setFormState({ mode: "edit", planId: numericId })
+  const handleOpenCreate = (): void => {
+    setEditingPlan(null)
+    setIsPlanModalOpen(true)
   }
 
-  const handleCloseForm = (): void => setFormState(null)
+  const handleOpenEdit = (plan: PlanRow): void => {
+    setEditingPlan(plan)
+    setIsPlanModalOpen(true)
+  }
+
+  const handleCloseForm = (): void => {
+    setIsPlanModalOpen(false)
+    setEditingPlan(null)
+  }
 
   const columns: TableColumn<PlanRow>[] = [
     {
@@ -117,7 +113,7 @@ export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): React
           className={editButtonClassName}
           data-tooltip-content="Editar plano"
           data-tooltip-id="estapar-sidebar-tooltip"
-          onClick={() => handleOpenEdit(String(row.idPlan))}
+          onClick={() => handleOpenEdit(row)}
         >
           <EditIcon className="h-4 w-4 text-estapar-dark-blue" />
         </button>
@@ -136,6 +132,7 @@ export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): React
           variant="outline"
           startIcon={<PlusIcon />}
           onClick={handleOpenCreate}
+          data-testid="plan-form-open-create"
           className="border-estapar-success bg-transparent! text-estapar-success"
         >
           Novo Plano
@@ -154,7 +151,13 @@ export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): React
           emptyMessage="Nenhum plano cadastrado."
         />
       )}
-      <PlanFormModal plan={editingPlan} garageId={garageId} open={formState != null} onClose={handleCloseForm} />
+      <PlanFormModal
+        plan={editingPlan}
+        garageId={garageId}
+        open={isPlanModalOpen}
+        onClose={handleCloseForm}
+        garageAvailableVacancies={garageAvailableVacancies}
+      />
     </section>
   )
 }

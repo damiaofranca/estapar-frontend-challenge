@@ -14,11 +14,11 @@ export const garagesService = {
       enabled: options?.enabled ?? true,
     })
   },
-  useGetGarageQuery: (params: GetGarageParams) => {
+  useGetGarageQuery: (params: GetGarageParams, options?: Pick<UseQueryOptions<Garage, Error>, "enabled">) => {
     return useQuery({
       queryKey: ["garage", params.garageId],
       queryFn: () => api.get<Garage>("/garage", { params }),
-      enabled: !!params.garageId,
+      enabled: (options?.enabled ?? true) && Boolean(params.garageId),
     })
   },
 }

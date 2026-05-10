@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { useEffect } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { toast } from "react-toastify"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, useWatch, type SubmitHandler } from "react-hook-form"
@@ -83,67 +83,89 @@ export const buildUpdatePlanPayload = (values: PlanFormValues, plan: Plan): Upda
   id: String(plan.idPlan),
 })
 
-export const planFormSchema = z
-  .object({
-    description: z.string().trim().min(1, "Informe a descrição do plano").max(120, "Descrição muito longa"),
-    vehicleType: z
-      .number("Selecione o tipo de veículo")
-      .refine((value) => Number.isFinite(value))
-      .int()
-      .min(1, "Selecione o tipo de veículo"),
-    totalVacancies: z
-      .number("Informe o total de vagas")
-      .refine((value) => Number.isFinite(value))
-      .int()
-      .min(1, "Total de vagas deve ser maior que zero"),
-    price: z
-      .string()
-      .min(1, "Informe o valor")
-      .refine((value) => Mask.moneyMaskToCents(value) > 0, "O valor mensal deve ser maior que zero"),
-    cancellationPrice: z
-      .string()
-      .min(1, "Informe o valor de cancelamento")
-      .refine((value) => Mask.moneyMaskToCents(value) > 0, "O valor de cancelamento deve ser maior que zero"),
-    startValidity: z.string().min(1, "Informe o início da validade"),
-    endValidity: z.string().min(1, "Informe o fim da validade"),
-    active: z.boolean(),
-  })
-  .refine((values) => values.endValidity >= values.startValidity, {
-    path: ["endValidity"],
-    message: "Fim da validade deve ser maior ou igual ao início",
-  })
+const planFormValuesSchema = z.object({
+  description: z.string().trim().min(1, "Informe a descrição do plano").max(120, "Descrição muito longa"),
+  vehicleType: z
+    .number("Selecione o tipo de veículo")
+    .refine((value) => Number.isFinite(value))
+    .int()
+    .min(1, "Selecione o tipo de veículo"),
+  totalVacancies: z
+    .number("Informe o total de vagas")
+    .refine((value) => Number.isFinite(value))
+    .int()
+    .min(1, "Total de vagas deve ser maior que zero"),
+  price: z
+    .string()
+    .min(1, "Informe o valor")
+    .refine((value) => Mask.moneyMaskToCents(value) > 0, "O valor mensal deve ser maior que zero"),
+  cancellationPrice: z
+    .string()
+    .min(1, "Informe o valor de cancelamento")
+    .refine((value) => Mask.moneyMaskToCents(value) > 0, "O valor de cancelamento deve ser maior que zero"),
+  startValidity: z.string().min(1, "Informe o início da validade"),
+  endValidity: z.string().min(1, "Informe o fim da validade"),
+  active: z.boolean(),
+})
 
-export type PlanFormSchema = z.infer<typeof planFormSchema>
+export const buildPlanFormSchema = (maxGarageVacancies: number) =>
+  planFormValuesSchema
+    .refine((values) => values.endValidity >= values.startValidity, {
+      path: ["endValidity"],
+      message: "Fim da validade deve ser maior ou igual ao início",
+    })
+    .superRefine((values, ctx) => {
+      if (maxGarageVacancies < 1) {
+        if (values.totalVacancies > 0) {
+          ctx.addIssue({
+            code: "custom",
+            path: ["totalVacancies"],
+            message: "Não há vagas disponíveis nesta garagem.",
+          })
+        }
+        return
+      }
+
+      if (values.totalVacancies > maxGarageVacancies) {
+        ctx.addIssue({
+          code: "custom",
+          path: ["totalVacancies"],
+          message: `O total de vagas não pode ser maior que as vagas disponíveis na garagem (${maxGarageVacancies}).`,
+        })
+      }
+    })
 
 type UsePlanFormParams = {
   open: boolean
   garageId: string
+  garageAvailableVacancies: number
   plan?: Plan | null
   onSuccess?: () => void
 }
 
-export const usePlanForm = ({ plan, open, garageId, onSuccess }: UsePlanFormParams) => {
+export const usePlanForm = ({ plan, open, garageId, garageAvailableVacancies, onSuccess }: UsePlanFormParams) => {
   const isEditMode = plan != null
+  const [isGarageRefreshing, setIsGarageRefreshing] = useState(false)
+
+  const maxGarageVacancies = useMemo(() => Math.max(0, garageAvailableVacancies), [garageAvailableVacancies])
+
+  const planFormSchema = useMemo(() => buildPlanFormSchema(maxGarageVacancies), [maxGarageVacancies])
 
   const { mutateAsync: createPlan, isPending: isCreating } = plansService.useCreatePlanMutation({
     onSuccess: () => {
       toast.success("Plano criado com sucesso")
-      queryClient.invalidateQueries({ queryKey: ["plans"] })
-      onSuccess?.()
-      reset(buildPlanFormDefaults(plan))
+      void queryClient.invalidateQueries({ queryKey: ["plans"] })
     },
   })
 
   const { mutateAsync: updatePlan, isPending: isUpdating } = plansService.useUpdatePlanMutation({
     onSuccess: () => {
       toast.success("Plano atualizado com sucesso")
-      queryClient.invalidateQueries({ queryKey: ["plans"] })
-      onSuccess?.()
-      reset(buildPlanFormDefaults(plan))
+      void queryClient.invalidateQueries({ queryKey: ["plans"] })
     },
   })
 
-  const isPending = isCreating || isUpdating
+  const isPending = isCreating || isUpdating || isGarageRefreshing
 
   const {
     reset,
@@ -152,6 +174,7 @@ export const usePlanForm = ({ plan, open, garageId, onSuccess }: UsePlanFormPara
     register,
     clearErrors,
     handleSubmit,
+    trigger,
     formState: { errors },
   } = useForm<PlanFormValues>({
     resolver: zodResolver(planFormSchema),
@@ -166,22 +189,42 @@ export const usePlanForm = ({ plan, open, garageId, onSuccess }: UsePlanFormPara
   }
 
   const onSubmit: SubmitHandler<PlanFormValues> = async (values) => {
-    if (plan) {
-      await updatePlan(buildUpdatePlanPayload(values, plan))
-    } else {
-      await createPlan(buildCreatePlanPayload(values, garageId))
+    try {
+      if (plan) {
+        await updatePlan(buildUpdatePlanPayload(values, plan))
+      } else {
+        await createPlan(buildCreatePlanPayload(values, garageId))
+      }
+    } catch {
+      return
     }
+
+    setIsGarageRefreshing(true)
+    try {
+      await queryClient.invalidateQueries({ queryKey: ["garage", garageId] })
+    } finally {
+      setIsGarageRefreshing(false)
+    }
+
+    reset(buildPlanFormDefaults(plan))
+    onSuccess?.()
   }
 
   useEffect(() => {
     reset(buildPlanFormDefaults(plan))
   }, [plan, reset, open])
+
+  useEffect(() => {
+    void trigger("totalVacancies")
+  }, [maxGarageVacancies, trigger])
+
   return {
     errors,
     active,
     control,
     isPending,
     isEditMode,
+    maxTotalVacancies: maxGarageVacancies,
 
     onSubmit,
     setValue,

@@ -51,7 +51,7 @@ export const GarageDetailsDrawer = ({ open, garageId, onClose }: GarageDetailsDr
   })
 
   const garage = garageQuery.data ?? null
-  const isGarageLoading = open && garageId != null && garageQuery.isFetching
+  const isGarageLoading = open && garageId != null && garage == null && garageQuery.isFetching
 
   const availableSpaces = (garage?.countSpaces ?? 0) - (garage?.occupiedSpaces ?? 0)
 
@@ -100,7 +100,9 @@ export const GarageDetailsDrawer = ({ open, garageId, onClose }: GarageDetailsDr
         </div>
         <div className="flex flex-col sm:flex-row sm:items-start">
           <GarageDetailsSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
-          {activeSection === "plans" ? <GaragePlansSection garageId={garageId} /> : null}
+          {activeSection === "plans" ? (
+            <GaragePlansSection garageId={garageId} garageAvailableVacancies={Math.max(0, availableSpaces)} />
+          ) : null}
           {activeSection === "discounts" ? <SectionPlaceholder title="Descontos" /> : null}
           {activeSection === "settings" ? <SectionPlaceholder title="Configurações" /> : null}
         </div>

@@ -26,6 +26,7 @@ export type ModalProps = {
   closeOnOverlayClick?: boolean
   showCloseButton?: boolean
   ariaLabel?: string
+  dialogTestId?: string
 }
 
 export const Modal = ({
@@ -40,6 +41,7 @@ export const Modal = ({
   ariaLabel,
   showCloseButton = true,
   closeOnOverlayClick = true,
+  dialogTestId,
 }: ModalProps): ReactElement | null => {
   const dialogRef = useRef<HTMLDivElement>(null)
 
@@ -92,6 +94,7 @@ export const Modal = ({
         ref={dialogRef}
         role="dialog"
         tabIndex={-1}
+        data-testid={dialogTestId}
         aria-modal="true"
         aria-label={typeof title === "string" ? title : ariaLabel}
         className={cn(
