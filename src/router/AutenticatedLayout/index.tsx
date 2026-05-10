@@ -24,6 +24,7 @@ type MenuItem = {
   to: string
   label: string
   icon: ReactElement
+  testId: string
 }
 
 type UseSidebarExpansionReturn = {
@@ -114,14 +115,24 @@ type SidebarNavItemProps = {
   icon: ReactElement
   isExpanded: boolean
   tooltipId: string
+  testId: string
 }
 
-const SidebarNavItem = ({ to, icon, label, isActive, isExpanded, tooltipId }: SidebarNavItemProps): ReactElement => {
+const SidebarNavItem = ({
+  to,
+  icon,
+  label,
+  testId,
+  isActive,
+  tooltipId,
+  isExpanded,
+}: SidebarNavItemProps): ReactElement => {
   return (
     <Link
       to={to}
       tabIndex={0}
       aria-label={label}
+      data-testid={testId}
       aria-current={isActive ? "page" : undefined}
       data-tooltip-id={!isExpanded ? tooltipId : undefined}
       data-tooltip-content={!isExpanded ? label : undefined}
@@ -234,6 +245,7 @@ const Sidebar = ({
               isActive={isActive}
               tooltipId={SIDEBAR_TOOLTIP_ID}
               isExpanded={isExpandedEffective}
+              testId={item.testId}
             />
           )
         })}
@@ -296,12 +308,14 @@ const AuthenticatedLayout = (): ReactElement => {
         to: ROUTES.GARAGES,
         label: "Garagens",
         icon: <GaragesIcon className="h-4 w-4" />,
+        testId: "nav-garages",
       },
       {
         key: "mensalistas",
         to: ROUTES.MENSALISTAS,
         label: "Mensalistas",
         icon: <MensalistasIcon className="h-4 w-4" />,
+        testId: "nav-mensalistas",
       },
     ],
     [],

@@ -4,21 +4,29 @@ import { Mask } from "@/utils"
 import type { Plan } from "@/services/plans/plans-types"
 import { Button, Input, Modal, Select, Switch, Label } from "@/components/ui"
 
-import { usePlanForm, vehicleTypeOptions } from "./use-plan-form"
+import { usePlanForm, vehicleTypeOptions } from "./use-form"
 
 export type PlanFormModalProps = {
   open: boolean
   garageId: string
+  garageAvailableVacancies: number
   plan?: Plan | null
   onClose: () => void
 }
 
-export const PlanFormModal = ({ open, plan, garageId, onClose }: PlanFormModalProps): ReactElement | null => {
+export const PlanFormModal = ({
+  open,
+  plan,
+  garageId,
+  garageAvailableVacancies,
+  onClose,
+}: PlanFormModalProps): ReactElement | null => {
   const {
     errors,
     active,
     isPending,
     isEditMode,
+    maxTotalVacancies,
 
     register,
     onSubmit,
@@ -28,6 +36,7 @@ export const PlanFormModal = ({ open, plan, garageId, onClose }: PlanFormModalPr
     open,
     plan,
     garageId,
+    garageAvailableVacancies,
     onSuccess: onClose,
   })
 
@@ -49,6 +58,7 @@ export const PlanFormModal = ({ open, plan, garageId, onClose }: PlanFormModalPr
       description={description}
       className="w-full max-w-lg"
       closeOnOverlayClick={!isPending}
+      dialogTestId="plan-form-modal"
     >
       <form
         noValidate
@@ -89,6 +99,7 @@ export const PlanFormModal = ({ open, plan, garageId, onClose }: PlanFormModalPr
 
           <Input
             min={1}
+            max={maxTotalVacancies != null && maxTotalVacancies > 0 ? maxTotalVacancies : undefined}
             step={1}
             type="number"
             placeholder="0"

@@ -50,7 +50,12 @@ export const Drawer = ({
     {showCloseButton ? (
       <div className={cn("flex items-center justify-end px-6 pt-4 ", !!headerSlot && "justify-between")}>
         {headerSlot}
-        <button type="button" onClick={onClose} className={drawerCloseButtonClassName}>
+        <button
+          type="button"
+          data-testid="drawer-close-button"
+          onClick={onClose}
+          className={drawerCloseButtonClassName}
+        >
           <XIcon className="h-5 w-5" />
         </button>
       </div>

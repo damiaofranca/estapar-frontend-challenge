@@ -22,11 +22,17 @@ export const GaragesFilters = ({
 }: GaragesFiltersProps): ReactElement => (
   <div className="rounded-lg border border-estapar-border-light bg-estapar-surface p-4">
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
-      <Switch label="Mensalista Digital" checked={mensalistaDigital} onCheckedChange={onMensalistaDigitalChange} />
+      <Switch
+        data-testid="garages-mensalista-digital-switch"
+        label="Mensalista Digital"
+        checked={mensalistaDigital}
+        onCheckedChange={onMensalistaDigitalChange}
+      />
       <Typography as="p" className="shrink-0 text-sm text-estapar-muted">
         {totalCount} &nbsp;registros
       </Typography>
       <Input
+        data-testid="garages-search-input"
         value={garageName}
         aria-label="Buscar por nome"
         placeholder="Buscar por nome"

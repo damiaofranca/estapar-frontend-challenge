@@ -11,7 +11,10 @@ const LoginPage = (): ReactElement => {
   const { handleSubmit, onSubmit, register, errors, isPending } = useLoginForm()
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-8 bg-estapar-canvas px-4 py-10">
+    <div
+      data-testid="login-page"
+      className="flex min-h-screen flex-col items-center justify-center gap-8 bg-estapar-canvas px-4 py-10"
+    >
       <img src={ESTAPAR_LOGO_SRC} alt="Estapar" className="h-8" />
 
       <div className="w-full max-w-md rounded-lg border border-estapar-border bg-estapar-surface p-6 shadow-sm shadow-estapar-border-light/80">
@@ -31,6 +34,7 @@ const LoginPage = (): ReactElement => {
             inputMode="text"
             spellCheck={false}
             id="login-username"
+            data-testid="login-username"
             icon={<UserIcon />}
             disabled={isPending}
             autoComplete="username"
@@ -43,6 +47,7 @@ const LoginPage = (): ReactElement => {
             label="Senha"
             type="password"
             id="login-password"
+            data-testid="login-password"
             icon={<LockIcon />}
             disabled={isPending}
             placeholder="Digite sua senha"
@@ -50,7 +55,14 @@ const LoginPage = (): ReactElement => {
             error={errors.password?.message}
             {...register("password")}
           />
-          <Button size="lg" type="submit" variant="primary" className="w-full" loading={isPending}>
+          <Button
+            data-testid="login-submit"
+            size="lg"
+            type="submit"
+            variant="primary"
+            className="w-full"
+            loading={isPending}
+          >
             Entrar
           </Button>
         </form>

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "test:e2e": "playwright test",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"*.{js,mjs,cjs,ts}\"",
@@ -32,6 +33,7 @@
     "zustand": "^5.0.13"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.0",
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.2",
     "@types/react": "^19.2.14",

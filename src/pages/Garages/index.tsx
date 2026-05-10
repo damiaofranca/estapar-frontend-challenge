@@ -1,11 +1,11 @@
 import type { ReactElement } from "react"
 
-import { GaragesIcon } from "@/components/icons/garage"
 import { Typography } from "@/components/ui"
 import { useGaragesPage } from "./use-garages-page"
-import { GaragesFilters } from "./components/garages-filters"
-import { GaragesTable } from "./components/garages-table"
-import { GarageDetailsDrawer } from "./components/garage-details-drawer"
+import { GaragesIcon } from "@/components/icons/garage"
+import { GaragesTable } from "./components/GaragesTable"
+import { GaragesFilters } from "./components/GaragesFilters"
+import { GarageDetailsDrawer } from "./components/GarageDetailsDrawer"
 
 const GaragesPage = (): ReactElement => {
   const {
@@ -28,7 +28,7 @@ const GaragesPage = (): ReactElement => {
   } = useGaragesPage()
 
   return (
-    <div className="w-full">
+    <div data-testid="garages-page" className="w-full">
       <header className="flex flex-col gap-6">
         <div className="flex flex-col items-start justify-between gap-1">
           <div className="flex items-center gap-3">

@@ -1,16 +1,16 @@
 import { useMemo, useState, type ReactElement } from "react"
 
+import { Typography } from "@/components/ui"
 import { Drawer } from "@/components/ui/drawer"
 import { QrCode } from "@/components/ui/qr-code"
 import { Tabs, type TabItem } from "@/components/ui/tabs"
-import { Typography } from "@/components/ui"
 import { QUERY_PARAMS, ROUTES } from "@/config/constants"
 
 import { garagesService } from "@/services"
-import { GarageStatsCards } from "./garage-stats-cards"
-import { GaragePlansSection } from "./garage-plans-section"
-import { GarageDetailsHeader, GarageDetailTitle } from "./garage-details-header"
-import { GarageDetailsSidebar, type GarageDetailsSection } from "./garage-details-sidebar"
+import { GarageStatsCards } from "./components/GarageStatsCards"
+import { GaragePlansSection } from "./components/GaragePlansSection"
+import { GarageDetailsHeader, GarageDetailTitle } from "./components/GarageDetailsHeader"
+import { type GarageDetailsSection, GarageDetailsSidebar } from "./components/GarageDetailsSidebar"
 
 const buildGarageDeepLink = (garageId: string): string => {
   if (typeof window === "undefined") {
@@ -51,7 +51,7 @@ export const GarageDetailsDrawer = ({ open, garageId, onClose }: GarageDetailsDr
   })
 
   const garage = garageQuery.data ?? null
-  const isGarageLoading = open && garageId != null && garageQuery.isFetching
+  const isGarageLoading = open && garageId != null && garage == null && garageQuery.isFetching
 
   const availableSpaces = (garage?.countSpaces ?? 0) - (garage?.occupiedSpaces ?? 0)
 
@@ -100,7 +100,9 @@ export const GarageDetailsDrawer = ({ open, garageId, onClose }: GarageDetailsDr
         </div>
         <div className="flex flex-col sm:flex-row sm:items-start">
           <GarageDetailsSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
-          {activeSection === "plans" ? <GaragePlansSection garageId={garageId} /> : null}
+          {activeSection === "plans" ? (
+            <GaragePlansSection garageId={garageId} garageAvailableVacancies={Math.max(0, availableSpaces)} />
+          ) : null}
           {activeSection === "discounts" ? <SectionPlaceholder title="Descontos" /> : null}
           {activeSection === "settings" ? <SectionPlaceholder title="Configurações" /> : null}
         </div>

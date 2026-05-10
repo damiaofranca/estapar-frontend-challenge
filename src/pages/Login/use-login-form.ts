@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
 
 import { ROUTES } from "@/config/constants"
 import { setAuthToken } from "@/store/auth-store"
@@ -14,10 +15,12 @@ export const loginFormSchema = z.object({
 export type LoginFormValues = z.infer<typeof loginFormSchema>
 
 export const useLoginForm = () => {
+  const navigate = useNavigate()
+
   const { mutateAsync, isPending } = authenticationService.useLogin({
     onSuccess: (response) => {
       setAuthToken(response.data.token)
-      window.location.href = ROUTES.HOME
+      navigate(ROUTES.HOME, { replace: true })
     },
   })
 

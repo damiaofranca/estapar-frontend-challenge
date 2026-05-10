@@ -11,11 +11,14 @@ Teste técnico de front-end para o portal B2B de gestão de garagens, vagas e pl
 - **Repositório do desafio**  
   https://github.com/estapar/frontend-challenge
 
+- **Link da aplicação**  
+  https://estapar-frontend-challenge.vercel.app/
+
 - **Credenciais de exemplo (mock)**  
   usuário `estapar` · senha `@estapar@`
 
 
-Configure a URL base da API em variável de ambiente **`VITE_API_URL`** (ex.: mock Apidog), conforme o ambiente onde o projeto será executado.
+Configure a URL base da API em variável de ambiente **`VITE_API_URL`** (ex.: mock Apidog), conforme o ambiente onde o projeto será executado. Arquivo de exemplo em **`.env.example`**.
 
 ---
 
@@ -57,7 +60,40 @@ yarn dev       # servidor de desenvolvimento
 yarn build     # build de produção
 yarn lint      # ESLint + Prettier
 yarn preview   # pré-visualização do build
+yarn test:e2e  # testes end-to-end (Playwright — ver secção abaixo)
 ```
+
+---
+
+## Testes E2E (Playwright)
+
+Os testes vivem na pasta **`e2e/`**, com **Page Object Model** em **`e2e/pages/`**, mocks de API em **`e2e/fixtures/`** e specs em **`e2e/*.spec.ts`**. A API é simulada com `page.route()`; o `VITE_API_URL` usado no bundle de teste aponta para um host fictício definido no `playwright.config.ts`.
+
+**Primeira vez na máquina** (baixar o Chromium do Playwright):
+
+```bash
+node node_modules/@playwright/test/cli.js install chromium
+```
+
+**Rodar a suíte:**
+
+```bash
+yarn test:e2e
+```
+
+**Relatório HTML** (após uma execução):
+
+```bash
+npx playwright show-report
+```
+
+**Servidor nos testes:** o Playwright sobe **`vite preview`** em `http://127.0.0.1:4173`. Se já existir **`dist/index.html`**, usa só o preview (ciclo local mais rápido). Em **CI** ou se **`PLAYWRIGHT_FORCE_BUILD=1`**, executa sempre `yarn build` antes do preview. Para forçar rebuild local (código ou `VITE_API_URL` mudaram):
+
+```powershell
+$env:PLAYWRIGHT_FORCE_BUILD="1"; yarn test:e2e
+```
+
+Artefactos de execução (`playwright-report/`, `test-results/`, `last-results/`) estão no **`.gitignore`**.
 
 ---
 
@@ -74,6 +110,7 @@ yarn preview   # pré-visualização do build
 | **Formulários** | React Hook Form + Zod + `@hookform/resolvers` | Validação declarativa e feedback de erro por campo. |
 | **Drawer** | `rc-drawer` | Comportamento de painel lateral com overlay, usado nos detalhes da garagem. |
 | **Feedback** | react-toastify | Toasts globais para sucesso/erro de API após criar/atualizar plano. |
+| **E2E** | Playwright (`@playwright/test`) | Fluxos críticos, validações, navegação e APIs mockadas; ver secção **Testes E2E**. |
 
 **Organização:** serviços em `src/services` (axios + wrappers), hooks finos em `src/hooks`, páginas em `src/pages`, componentes UI reutilizáveis em `src/components/ui`.
 
@@ -118,6 +155,8 @@ yarn preview   # pré-visualização do build
 |---------|-----------|
 | `yarn dev` | Desenvolvimento com Vite. |
 | `yarn build` | `tsc -b` + bundle de produção. |
+| `yarn preview` | Servir o conteúdo de `dist/` (mesmo modo usado pelos E2E). |
+| `yarn test:e2e` | Playwright: sobe preview (e build se necessário) e corre todos os testes em `e2e/`. |
 | `yarn lint` | ESLint (inclui Prettier integrado na configuração do projeto). |
 | `yarn format:check` | Verificação Prettier em arquivos fonte. |
 

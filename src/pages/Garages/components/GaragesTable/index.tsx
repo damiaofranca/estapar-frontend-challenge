@@ -3,7 +3,7 @@ import type { ReactElement } from "react"
 import { EyeIcon } from "@/components/icons/eye"
 import { Table, type TableColumn } from "@/components/ui/table"
 
-import type { GaragesRow } from "../use-garages-page"
+import type { GaragesRow } from "../../use-garages-page"
 
 type GaragesTableProps = {
   rows: GaragesRow[]
@@ -67,6 +67,7 @@ export const GaragesTable = ({
           <button
             type="button"
             tabIndex={0}
+            data-testid={`garage-view-button-${row.code}`}
             aria-label={`Ver detalhes da garagem ${row.name}`}
             data-tooltip-content="Ver detalhes"
             data-tooltip-id="estapar-sidebar-tooltip"
