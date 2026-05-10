@@ -5,7 +5,7 @@ import { ROUTES } from "@/config/constants"
 import { useAuth } from "@/hooks/use-auth"
 import { useAuthStoreHydration } from "@/hooks/use-auth-store-hydration"
 
-const ProtectedRoute = (): ReactElement | null => {
+const ProtectedLayout = (): ReactElement | null => {
   const hasHydrated = useAuthStoreHydration()
   const auth = useAuth()
   const isAuthenticated = auth.isAuthenticated
@@ -21,4 +21,4 @@ const ProtectedRoute = (): ReactElement | null => {
   return <Outlet />
 }
 
-export default ProtectedRoute
+export default ProtectedLayout

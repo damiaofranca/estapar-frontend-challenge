@@ -1,9 +1,9 @@
 import type { ReactElement } from "react"
 
+import { Typography } from "@/components/ui"
 import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { SearchIcon } from "@/components/icons/search"
-import { Typography } from "@/components/ui"
 
 type GaragesFiltersProps = {
   garageName: string
@@ -23,23 +23,17 @@ export const GaragesFilters = ({
   <div className="rounded-lg border border-estapar-border-light bg-estapar-surface p-4">
     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
       <Switch label="Mensalista Digital" checked={mensalistaDigital} onCheckedChange={onMensalistaDigitalChange} />
-
-      <div className="flex min-w-0 flex-1 flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center lg:justify-end lg:gap-4">
-        <Typography as="p" className="shrink-0 text-sm text-estapar-muted">
-          <Typography as="span" className="font-medium text-estapar-body">
-            {totalCount}
-          </Typography>
-          {" registros"}
-        </Typography>
-        <Input
-          value={garageName}
-          aria-label="Buscar por nome"
-          placeholder="Buscar por nome"
-          icon={<SearchIcon className="h-4 w-4" />}
-          className="w-full min-w-0 lg:max-w-md xl:w-72"
-          onChange={(e) => onGarageNameChange(e.target.value)}
-        />
-      </div>
+      <Typography as="p" className="shrink-0 text-sm text-estapar-muted">
+        {totalCount} &nbsp;registros
+      </Typography>
+      <Input
+        value={garageName}
+        aria-label="Buscar por nome"
+        placeholder="Buscar por nome"
+        icon={<SearchIcon className="h-4 w-4" />}
+        className="w-full lg:max-w-md xl:w-56"
+        onChange={(e) => onGarageNameChange(e.target.value)}
+      />
     </div>
   </div>
 )

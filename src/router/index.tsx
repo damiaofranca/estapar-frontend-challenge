@@ -1,22 +1,21 @@
+import { createBrowserRouter, Outlet } from "react-router-dom"
 import { createElement, Suspense, type ReactElement } from "react"
-import { createBrowserRouter } from "react-router-dom"
 
 import { ROUTES } from "@/config/constants"
-import GuestRoute from "@/router/guest-route"
-import ProtectedRoute from "@/router/protected-route"
-import AuthenticatedLayout from "@/router/authenticated-layout"
+import GuestLayout from "@/router/GuestLayout"
+import ProtectedRoute from "@/router/ProtectedLayout"
+import AuthenticatedLayout from "@/router/AutenticatedLayout"
 import { garagesPage, loginPage, mensalistasPage, notFoundPage, welcomePage } from "@/router/lazy-route-modules"
-import rootOutlet from "@/router/root-outlet"
 
 const withSuspense = (node: ReactElement): ReactElement => <Suspense fallback={null}>{node}</Suspense>
 
 export const router = createBrowserRouter([
   {
-    element: createElement(rootOutlet),
+    element: createElement(() => <Outlet />),
     errorElement: withSuspense(createElement(notFoundPage)),
     children: [
       {
-        element: <GuestRoute />,
+        element: <GuestLayout />,
         children: [
           {
             path: ROUTES.LOGIN,
