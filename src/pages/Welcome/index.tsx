@@ -35,6 +35,7 @@ const WELCOME_CARDS = [
 const WelcomeCard = ({ to, title, description, Icon }: WelcomeCardProps): ReactElement => (
   <Link
     to={to}
+    data-testid={to === ROUTES.GARAGES ? "welcome-card-garages" : "welcome-card-mensalistas"}
     aria-label={`Ir para ${title}`}
     className={cn([
       "group relative block w-full rounded-lg border border-estapar-border bg-estapar-surface p-6 shadow-sm shadow-estapar-border-light/80",

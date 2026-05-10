@@ -28,7 +28,7 @@ const GaragesPage = (): ReactElement => {
   } = useGaragesPage()
 
   return (
-    <div className="w-full">
+    <div data-testid="garages-page" className="w-full">
       <header className="flex flex-col gap-6">
         <div className="flex flex-col items-start justify-between gap-1">
           <div className="flex items-center gap-3">

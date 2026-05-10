@@ -67,6 +67,7 @@ export const GaragesTable = ({
           <button
             type="button"
             tabIndex={0}
+            data-testid={`garage-view-button-${row.code}`}
             aria-label={`Ver detalhes da garagem ${row.name}`}
             data-tooltip-content="Ver detalhes"
             data-tooltip-id="estapar-sidebar-tooltip"
