@@ -1,5 +1,7 @@
 import type { ReactElement } from "react"
 
+import { Typography } from "@/components/ui"
+
 export type EstaparLogoProps = {
   className?: string
 }
@@ -23,7 +25,12 @@ export const EstaparLogo = ({ className }: EstaparLogoProps): ReactElement => {
           </linearGradient>
         </defs>
       </svg>
-      <span className="select-none text-[26px] font-bold leading-none tracking-tight text-estapar-title">ESTAPAR</span>
+      <Typography
+        as="span"
+        className="select-none text-[26px] font-bold leading-none tracking-tight text-estapar-title"
+      >
+        ESTAPAR
+      </Typography>
     </div>
   )
 }

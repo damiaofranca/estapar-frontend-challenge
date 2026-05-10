@@ -3,6 +3,7 @@ import type { ReactElement, ReactNode } from "react"
 import { UsersIcon } from "@/components/icons/users"
 import { cn } from "@/lib/cn"
 import { formatInteger } from "@/lib/format"
+import { Typography } from "@/components/ui"
 
 type GarageStatsCardsProps = {
   totalSpaces: number
@@ -20,11 +21,16 @@ type StatCardProps = {
 
 const StatCard = ({ label, value, icon, valueClassName }: StatCardProps): ReactElement => (
   <div className="flex flex-col gap-3 rounded-lg border border-estapar-border-light bg-estapar-surface p-4">
-    <span className="text-sm font-medium text-estapar-caption">{label}</span>
-    <span className={cn("flex items-center gap-2 text-2xl font-bold text-estapar-dark-blue", valueClassName)}>
+    <Typography as="span" className="text-sm font-medium text-estapar-caption">
+      {label}
+    </Typography>
+    <Typography
+      as="span"
+      className={cn("flex items-center gap-2 text-2xl font-bold text-estapar-dark-blue", valueClassName)}
+    >
       {icon}
       {formatInteger(value)}
-    </span>
+    </Typography>
   </div>
 )
 

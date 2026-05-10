@@ -2,6 +2,8 @@ import type { ComponentPropsWithoutRef, ReactElement } from "react"
 
 import { cn } from "@/lib/cn"
 
+import { Typography } from "./typography"
+
 export type BadgeVariant = "neutral" | "success" | "danger" | "info"
 
 const badgeBaseClassName = "inline-flex items-center justify-center rounded-full px-2.5 py-0.5 text-xs font-medium"
@@ -18,5 +20,5 @@ export type BadgeProps = ComponentPropsWithoutRef<"span"> & {
 }
 
 export const Badge = ({ className, variant = "neutral", ...rest }: BadgeProps): ReactElement => (
-  <span className={cn(badgeBaseClassName, badgeVariantClassName[variant], className)} {...rest} />
+  <Typography as="span" className={cn(badgeBaseClassName, badgeVariantClassName[variant], className)} {...rest} />
 )

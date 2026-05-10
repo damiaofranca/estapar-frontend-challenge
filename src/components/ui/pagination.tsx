@@ -4,6 +4,8 @@ import { ChevronLeftSmallIcon } from "@/components/icons/chevron-left-small"
 import { ChevronRightSmallIcon } from "@/components/icons/chevron-right-small"
 import { cn } from "@/lib/cn"
 
+import { Typography } from "./typography"
+
 const PAGINATION_ELLIPSIS = "ellipsis"
 
 type PaginationItem = number | typeof PAGINATION_ELLIPSIS
@@ -82,14 +84,21 @@ export const Pagination = ({
       aria-label="Paginação"
       className={cn("flex flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between", className)}
     >
-      <p className="text-xs text-estapar-muted">
-        Mostrando <span className="font-medium text-estapar-body">{rangeStart}</span>
+      <Typography as="p" className="text-xs text-estapar-muted">
+        Mostrando{" "}
+        <Typography as="span" className="font-medium text-estapar-body">
+          {rangeStart}
+        </Typography>
         {" - "}
-        <span className="font-medium text-estapar-body">{rangeEnd}</span>
+        <Typography as="span" className="font-medium text-estapar-body">
+          {rangeEnd}
+        </Typography>
         {" de "}
-        <span className="font-medium text-estapar-body">{totalCount}</span>
+        <Typography as="span" className="font-medium text-estapar-body">
+          {totalCount}
+        </Typography>
         {" registros"}
-      </p>
+      </Typography>
       <ul className="flex items-center gap-1">
         <li>
           <button
@@ -106,12 +115,13 @@ export const Pagination = ({
           if (item === PAGINATION_ELLIPSIS) {
             return (
               <li key={`ellipsis-${index}`}>
-                <span
+                <Typography
+                  as="span"
                   aria-hidden
                   className="inline-flex h-8 min-w-8 items-center justify-center px-2 text-sm text-estapar-muted"
                 >
                   …
-                </span>
+                </Typography>
               </li>
             )
           }

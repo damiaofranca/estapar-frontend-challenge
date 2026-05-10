@@ -4,6 +4,7 @@ import { cn } from "@/lib/cn"
 import type { InputMask } from "@/utils/masks"
 
 import { Label, type LabelProps } from "./label"
+import { Typography } from "./typography"
 
 export const inputRootClassName =
   "peer flex h-10 w-full min-w-0 rounded-md border border-estapar-border-input bg-estapar-surface px-3 py-2 text-sm leading-none text-estapar-body shadow-sm outline-none transition-[color,box-shadow] placeholder:text-estapar-subtle focus-visible:border-estapar-primary focus-visible:ring-[3px] focus-visible:ring-estapar-ring/35 disabled:cursor-not-allowed disabled:opacity-50"
@@ -115,18 +116,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <div className="relative shrink-0">
           {icon ? (
-            <span className={cn(iconSlotClassName, sideIcon === "right" ? "right-3" : "left-3")} aria-hidden>
+            <Typography
+              as="span"
+              className={cn(iconSlotClassName, sideIcon === "right" ? "right-3" : "left-3")}
+              aria-hidden
+            >
               {icon}
-            </span>
+            </Typography>
           ) : null}
           {inputEl}
         </div>
 
         {error != null && error !== false ? (
           typeof error === "string" ? (
-            <p id={errorId} role="alert" className="text-sm font-medium text-estapar-error">
+            <Typography as="p" id={errorId} role="alert" className="text-sm font-medium text-estapar-error">
               {error}
-            </p>
+            </Typography>
           ) : (
             <div id={errorId} role="alert" className="text-sm font-medium text-estapar-error">
               {error}
@@ -135,9 +140,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         ) : null}
 
         {hint != null ? (
-          <p id={hintId} className="text-sm text-estapar-muted">
+          <Typography as="p" id={hintId} className="text-sm text-estapar-muted">
             {hint}
-          </p>
+          </Typography>
         ) : null}
       </div>
     )

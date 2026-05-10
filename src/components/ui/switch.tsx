@@ -9,6 +9,8 @@ import {
 
 import { cn } from "@/lib/cn"
 
+import { Typography } from "./typography"
+
 export type SwitchSize = "sm" | "md"
 
 const switchTrackClassName =
@@ -97,7 +99,8 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
           {...rest}
         />
 
-        <span
+        <Typography
+          as="span"
           aria-hidden
           className={cn(
             switchTrackClassName,
@@ -107,16 +110,19 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             className,
           )}
         >
-          <span
+          <Typography
+            as="span"
             className={cn(
               "pointer-events-none inline-block rounded-full bg-estapar-surface shadow-sm transition-transform duration-200 ease-out will-change-transform",
               switchThumbSizeClassName[size],
             )}
           />
-        </span>
+        </Typography>
 
         {label != null ? (
-          <span className={cn("text-sm font-medium text-estapar-body", labelClassName)}>{label}</span>
+          <Typography as="span" className={cn("text-sm font-medium text-estapar-body", labelClassName)}>
+            {label}
+          </Typography>
         ) : null}
       </label>
     )

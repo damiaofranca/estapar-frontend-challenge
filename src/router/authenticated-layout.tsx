@@ -13,6 +13,7 @@ import { ChevronIcon } from "@/components/icons/chevron"
 import { EstaparIcon } from "@/components/icons/estapar"
 import { MensalistasIcon } from "@/components/icons/mensalistas"
 import { UserIcon } from "@/components/icons/user"
+import { Typography } from "@/components/ui"
 
 const SIDEBAR_COLLAPSE_BREAKPOINT_PX = 1024
 const SIDEBAR_EXPANDED_STORAGE_KEY = "estapar.sidebar.expanded"
@@ -140,7 +141,8 @@ const SidebarNavItem = ({ to, icon, label, isActive, isExpanded, tooltipId }: Si
         >
           {icon}
         </div>
-        <span
+        <Typography
+          as="span"
           className={cn([
             "text-sm font-medium",
             isActive ? "text-estapar-primary" : "text-estapar-body",
@@ -148,7 +150,7 @@ const SidebarNavItem = ({ to, icon, label, isActive, isExpanded, tooltipId }: Si
           ])}
         >
           {label}
-        </span>
+        </Typography>
       </div>
     </Link>
   )
@@ -266,7 +268,7 @@ const LogoutButton = ({ onLogout }: LogoutButtonProps): ReactElement => {
       className="flex items-center gap-1 rounded-lg px-2 py-1 text-sm font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-estapar-ring cursor-pointer text-estapar-caption"
     >
       <PowerIcon className="h-4 w-4" />
-      <span>Sair</span>
+      <Typography as="span">Sair</Typography>
     </button>
   )
 }
@@ -279,7 +281,9 @@ const UserInfo = ({ user }: UserInfoProps): ReactElement => {
   return (
     <div className="flex items-center gap-1">
       <UserIcon className="h-4 w-4 text-estapar-caption" aria-hidden />
-      <span className="text-sm font-medium text-estapar-caption">{user?.name ?? "Usuário"}</span>
+      <Typography as="span" className="text-sm font-medium text-estapar-caption">
+        {user?.name ?? "Usuário"}
+      </Typography>
     </div>
   )
 }

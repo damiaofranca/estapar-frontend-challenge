@@ -3,6 +3,7 @@ import type { CSSProperties, KeyboardEvent, ReactNode } from "react"
 import { cn } from "@/lib/cn"
 
 import { Pagination, type PaginationProps } from "./pagination"
+import { Typography } from "./typography"
 
 export type TableColumnAlign = "left" | "center" | "right"
 
@@ -177,9 +178,9 @@ export const Table = <T,>({
     const title = getTruncatableTitle(node)
 
     return (
-      <span title={title} className="block truncate">
+      <Typography as="span" title={title} className="block truncate">
         {node}
-      </span>
+      </Typography>
     )
   }
 
