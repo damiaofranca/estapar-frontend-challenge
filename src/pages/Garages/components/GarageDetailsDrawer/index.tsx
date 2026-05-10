@@ -1,16 +1,16 @@
 import { useMemo, useState, type ReactElement } from "react"
 
+import { Typography } from "@/components/ui"
 import { Drawer } from "@/components/ui/drawer"
 import { QrCode } from "@/components/ui/qr-code"
 import { Tabs, type TabItem } from "@/components/ui/tabs"
-import { Typography } from "@/components/ui"
 import { QUERY_PARAMS, ROUTES } from "@/config/constants"
 
 import { garagesService } from "@/services"
-import { GarageStatsCards } from "./garage-stats-cards"
-import { GaragePlansSection } from "./garage-plans-section"
-import { GarageDetailsHeader, GarageDetailTitle } from "./garage-details-header"
-import { GarageDetailsSidebar, type GarageDetailsSection } from "./garage-details-sidebar"
+import { GarageStatsCards } from "./components/GarageStatsCards"
+import { GaragePlansSection } from "./components/GaragePlansSection"
+import { GarageDetailsHeader, GarageDetailTitle } from "./components/GarageDetailsHeader"
+import { type GarageDetailsSection, GarageDetailsSidebar } from "./components/GarageDetailsSidebar"
 
 const buildGarageDeepLink = (garageId: string): string => {
   if (typeof window === "undefined") {

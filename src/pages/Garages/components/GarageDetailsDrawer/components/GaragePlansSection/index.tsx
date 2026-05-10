@@ -1,19 +1,19 @@
 import { useMemo, useState, type ReactElement } from "react"
 
 import { cn } from "@/lib/cn"
-import { Badge, Typography } from "@/components/ui"
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { EditIcon } from "@/components/icons/edit"
 import { PlusIcon } from "@/components/icons/plus"
+import { Badge, Typography } from "@/components/ui"
 import { formatInteger, isActiveFlag } from "@/lib/format"
 import { Table, type TableColumn } from "@/components/ui/table"
 import { MensalistasIcon } from "@/components/icons/mensalistas"
 
 import { plansService } from "@/services"
-import { PlanFormModal } from "./plan-form-modal"
 import { VehicleType } from "@/services/plans/plans-types"
 import { MotocycleIcon } from "@/components/icons/motocycle"
+import { PlanFormModal } from "../../../garage-details-drawer/plan-form-modal"
 import { buildPlanRows, formatPlanValue, type PlanRow } from "@/utils/garage-plans-utils"
 
 const editButtonClassName = cn(
@@ -134,8 +134,8 @@ export const GaragePlansSection = ({ garageId }: GaragePlansSectionProps): React
         <Button
           size="sm"
           variant="outline"
-          onClick={handleOpenCreate}
           startIcon={<PlusIcon />}
+          onClick={handleOpenCreate}
           className="border-estapar-success bg-transparent! text-estapar-success"
         >
           Novo Plano

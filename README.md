@@ -11,11 +11,14 @@ Teste técnico de front-end para o portal B2B de gestão de garagens, vagas e pl
 - **Repositório do desafio**  
   https://github.com/estapar/frontend-challenge
 
+- **Link do aplicação **  
+  https://estapar-frontend-challenge.vercel.app/
+
 - **Credenciais de exemplo (mock)**  
   usuário `estapar` · senha `@estapar@`
 
 
-Configure a URL base da API em variável de ambiente **`VITE_API_URL`** (ex.: mock Apidog), conforme o ambiente onde o projeto será executado.
+Configure a URL base da API em variável de ambiente **`VITE_API_URL`** (ex.: mock Apidog), conforme o ambiente onde o projeto será executado. Arquivo de exemplo em **`.env.example`**.
 
 ---
 

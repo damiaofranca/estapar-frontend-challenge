@@ -1,11 +1,11 @@
 import type { ReactElement } from "react"
 
-import { GaragesIcon } from "@/components/icons/garage"
 import { Typography } from "@/components/ui"
 import { useGaragesPage } from "./use-garages-page"
-import { GaragesFilters } from "./components/garages-filters"
-import { GaragesTable } from "./components/garages-table"
-import { GarageDetailsDrawer } from "./components/garage-details-drawer"
+import { GaragesIcon } from "@/components/icons/garage"
+import { GaragesTable } from "./components/GaragesTable"
+import { GaragesFilters } from "./components/GaragesFilters"
+import { GarageDetailsDrawer } from "./components/GarageDetailsDrawer"
 
 const GaragesPage = (): ReactElement => {
   const {

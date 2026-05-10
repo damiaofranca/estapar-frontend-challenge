@@ -4,7 +4,7 @@ import { Mask } from "@/utils"
 import type { Plan } from "@/services/plans/plans-types"
 import { Button, Input, Modal, Select, Switch, Label } from "@/components/ui"
 
-import { usePlanForm, vehicleTypeOptions } from "./use-plan-form"
+import { usePlanForm, vehicleTypeOptions } from "./use-form"
 
 export type PlanFormModalProps = {
   open: boolean

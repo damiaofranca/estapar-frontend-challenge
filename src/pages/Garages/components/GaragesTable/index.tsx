@@ -3,7 +3,7 @@ import type { ReactElement } from "react"
 import { EyeIcon } from "@/components/icons/eye"
 import { Table, type TableColumn } from "@/components/ui/table"
 
-import type { GaragesRow } from "../use-garages-page"
+import type { GaragesRow } from "../../use-garages-page"
 
 type GaragesTableProps = {
   rows: GaragesRow[]

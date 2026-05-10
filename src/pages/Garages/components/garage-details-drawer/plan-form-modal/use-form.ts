@@ -6,7 +6,7 @@ import { useForm, useWatch, type SubmitHandler } from "react-hook-form"
 
 import { plansService } from "@/services"
 import { isActiveFlag } from "@/lib/format"
-import { queryClient } from "@/lib/queryClient"
+import { queryClient } from "@/lib/query-client"
 import type { SelectOption } from "@/components/ui"
 import { Mask, addDaysIso, todayIsoDate, toIsoDate } from "@/utils"
 import { type Plan, VehicleType, type UpdatePlanPayload, type CreatePlanPayload } from "@/services/plans/plans-types"
