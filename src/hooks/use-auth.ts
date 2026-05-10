@@ -1,4 +1,5 @@
 import { useMemo } from "react"
+import { useNavigate } from "react-router-dom"
 
 import { ROUTES } from "@/config/constants"
 import { useAuthStore } from "@/store/auth-store"
@@ -16,6 +17,7 @@ export interface UseAuthReturn {
 }
 
 export const useAuth = (): UseAuthReturn => {
+  const navigate = useNavigate()
   const token = useAuthStore((state) => state.token)
   const clearToken = useAuthStore((state) => state.clearToken)
 
@@ -33,7 +35,7 @@ export const useAuth = (): UseAuthReturn => {
 
   const logout = (): void => {
     clearToken()
-    window.location.href = ROUTES.LOGIN
+    navigate(ROUTES.LOGIN, { replace: true })
   }
 
   return {
