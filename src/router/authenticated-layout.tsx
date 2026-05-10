@@ -4,16 +4,16 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom"
 import { Tooltip as ReactTooltip } from "react-tooltip"
 
 import { cn } from "@/lib/cn"
-import { useAuth, type AuthUser } from "@/hooks/use-auth"
-import { ROUTES } from "@/config/constants"
+import { Typography } from "@/components/ui"
+import { UserIcon } from "@/components/icons/user"
 import { PowerIcon } from "@/components/icons/power"
 import { useWindowSize } from "@/hooks/use-window-size"
 import { GaragesIcon } from "@/components/icons/garage"
 import { ChevronIcon } from "@/components/icons/chevron"
 import { EstaparIcon } from "@/components/icons/estapar"
+import { useAuth, type AuthUser } from "@/hooks/use-auth"
+import { ESTAPAR_LOGO_SRC, ROUTES } from "@/config/constants"
 import { MensalistasIcon } from "@/components/icons/mensalistas"
-import { UserIcon } from "@/components/icons/user"
-import { Typography } from "@/components/ui"
 
 const SIDEBAR_COLLAPSE_BREAKPOINT_PX = 1024
 const SIDEBAR_EXPANDED_STORAGE_KEY = "estapar.sidebar.expanded"
@@ -212,7 +212,7 @@ const Sidebar = ({
           ])}
         >
           {isExpandedEffective ? (
-            <img alt="Estapar" className="h-8" src="/src/assets/estapar-logo.png" />
+            <img alt="Estapar" className="h-8" src={ESTAPAR_LOGO_SRC} />
           ) : (
             <EstaparIcon />
           )}
