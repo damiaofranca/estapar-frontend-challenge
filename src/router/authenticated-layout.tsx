@@ -207,15 +207,11 @@ const Sidebar = ({
           onKeyDown={handleLogoKeyDown}
           aria-label="Ir para tela de boas-vindas"
           className={cn([
-            "rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-estapar-ring",
+            "rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-estapar-ring cursor-pointer",
             isExpandedEffective ? "p-0" : "p-2",
           ])}
         >
-          {isExpandedEffective ? (
-            <img alt="Estapar" className="h-8" src={ESTAPAR_LOGO_SRC} />
-          ) : (
-            <EstaparIcon />
-          )}
+          {isExpandedEffective ? <img alt="Estapar" className="h-8" src={ESTAPAR_LOGO_SRC} /> : <EstaparIcon />}
         </button>
 
         <SidebarToggleButton
