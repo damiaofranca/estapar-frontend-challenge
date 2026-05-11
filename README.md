@@ -2,7 +2,7 @@
 
 Teste técnico de front-end para o portal B2B de gestão de garagens, vagas e planos de mensalista digital.
 
-- **Protótipo (Figma FigJam)**  
+- **Protótipo (Figma Figma)**  
   https://www.figma.com/board/CdIGvRXNpxcPyJIze4hYRE/Teste-Front?t=YU8tn1L6rJayH1K8-0
 
 - **API (documentação)**  
@@ -24,7 +24,7 @@ Configure a URL base da API em variável de ambiente **`VITE_API_URL`** (ex.: mo
 
 # Avisos para quem revisa o projeto
 
-Os dois pontos abaixo **não são detalhes secundários**: explicam por que a tela pode diferir do FigJam e por que os tipos/`GET` podem não espelhar o Apidog literalmente.
+Os dois pontos abaixo **não são detalhes secundários**: explicam por que a tela pode diferir do Figma e por que os tipos/`GET` podem não espelhar o Apidog literalmente.
 
 ---
 
@@ -113,6 +113,22 @@ Artefactos de execução (`playwright-report/`, `test-results/`, `last-results/`
 | **E2E** | Playwright (`@playwright/test`) | Fluxos críticos, validações, navegação e APIs mockadas; ver secção **Testes E2E**. |
 
 **Organização:** serviços em `src/services` (axios + wrappers), hooks finos em `src/hooks`, páginas em `src/pages`, componentes UI reutilizáveis em `src/components/ui`.
+
+### Justificativa de algumas escolhas técnicas
+
+#### Ícones (SVG próprio em vez de biblioteca de ícones)
+
+Considerei usar uma **lib de ícones** (ex.: pacote com park-icons). Como o referencial no Figma **não permitia pixel-perfect**, sobretudo por ser muito conteúdo em **imagem**, tratei um dos eixos ao meu favor: **fidelidade visual dos pictogramas**. Ícones em **SVG inline** no repositório permitem ajustar **stroke, viewBox e proporção** à mão para ficarem próximos do que aparece nos mockups, sem herdar o peso visual “genérico” de um set de biblioteca que não foi desenhado para aquele layout.
+
+Num **cenário de produto** com design system fechado (tokens + biblioteca de ícones oficial), a tendência seria **adotar a lib acordada com design** e trocar estes SVG por imports desse pacote, mantendo a mesma arquitetura de componentes.
+
+#### Componentes UI (sem lib de componentes pronta estilo shadcn/MUI)
+
+Não integrei uma **UI kit completa** (Material, Ant, Chakra, shadcn em cima de Radix, etc.). A maior parte dessas soluções vem com **presets fortes** (tema, densidade, animações, estilos de foco) que competem com o que o desafio pede em Tailwind e com o **protótipo em imagem**: ou se gasta tempo a **sobrescrever** tokens e estilos da lib, ou a interface **deriva** do look do Figma.
+
+Uma alternativa seria uma camada **headless** (só comportamento e acessibilidade, estilo 100% teu). Para o **escopo e prazo** de um teste técnico, isso **aumenta complexidade e tempo** (composição de primitivos, estados, ARIA, focus trap em modal/drawer, etc.) sem ganho proporcional frente a **componentes próprios enxutos** em `src/components/ui` (botão, input, tabela, modal, drawer já integrado com `rc-drawer` onde fazia sentido).
+
+Em suma: **componentes leves feitos para o projeto** + Tailwind; num time maior, faria sentido evoluir para **headless + tokens** ou para a **lib oficial** da empresa, com migração gradual.
 
 ---
 
